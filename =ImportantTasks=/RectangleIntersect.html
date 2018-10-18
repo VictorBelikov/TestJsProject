@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RectangleIntersect</title>
+    <style>
+        .main {
+            position: relative;
+            border: 1px solid black;
+            width: 650px;
+            height: 400px;
+            background: black;
+        }
+
+        .square {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: calc(400px / 2 - 50px);
+        }
+
+        .red {
+            background: red;
+            left: 150px;
+        }
+
+        .yellow {
+            background: yellow;
+            left: 400px;
+        }
+
+        .control {
+            display: inline-block;
+            border: 1px solid black;
+            padding: 20px;
+            margin-left: 35px;
+        }
+
+        .control label {
+            display: inline-block;
+            width: 50px;
+        }
+
+        .yellowcontrol {
+            background: #fffed6;
+        }
+
+        .redcontrol {
+            background: #ffeded;
+        }
+
+        #intersectField {
+            padding: 10px;
+            width: 200px;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .intersect {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 25px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrapcontrol">
+    <p class="redcontrol control" id="redcontrol">
+        <label for="coordXr">X</label>
+        <input id="coordXr" type="text"><br><br>
+        <label for="coordYr">Y</label>
+        <input id="coordYr" type="text"><br><br>
+        <label for="coordWr">Width</label>
+        <input id="coordWr" type="text"><br><br>
+        <label for="coordHr">Height</label>
+        <input id="coordHr" type="text">
+    </p>
+
+    <p class="yellowcontrol control" id="yellowcontrol">
+        <label for="coordXy">X</label>
+        <input id="coordXy" type="text"><br><br>
+        <label for="coordYy">Y</label>
+        <input id="coordYy" type="text"><br><br>
+        <label for="coordWy">Width</label>
+        <input id="coordWy" type="text"><br><br>
+        <label for="coordHy">Height</label>
+        <input id="coordHy" type="text">
+    </p>
+
+    <p class="intersect">
+        <input type="text" id="intersectField" value="No intersect" disabled>
+    </p>
+</div>
+
+<div id="wrap" class="main">
+    <div class="red square" id="redSq"></div>
+    <div class="yellow square" id="yellowSq"></div>
+</div>
+
+<script>
+    // https://jsbin.com/fakosof/edit?js,output
+    const mainField = document.getElementById('wrap'),
+        controlField = document.getElementById('wrapcontrol'),
+        redSquare = document.getElementById('redSq'),
+        yellowSquare = document.getElementById('yellowSq'),
+        intersectField = document.getElementById('intersectField');
+
+
+    function computeStyle(elem, coordinate, e) {
+        let result;
+        const fieldWidth = parseFloat(getComputedStyle(mainField).width),
+            fieldHeight = parseFloat(getComputedStyle(mainField).height),
+            elemWidth = parseFloat(getComputedStyle(elem).width);
+
+        if (coordinate === 'x') {
+            result = parseFloat(e.target.value);
+        } else if (coordinate === 'y') {
+            result = parseFloat(e.target.value);
+        }
+
+        if (result < 0) {
+            alert('Достигнута граница поля!');
+            return 0 + 'px';
+        } else if (result > (fieldWidth - elemWidth) && coordinate === 'x') {
+            alert('Достигнута граница поля!');
+            return (fieldWidth - elemWidth) + 'px';
+        } else if (result > (fieldHeight - elemWidth) && coordinate === 'y') {
+            alert('Достигнута граница поля!');
+            return (fieldHeight - elemWidth) + 'px';
+        }
+        return result + 'px';
+    }
+
+
+    function detectIntersect(intrsctField, redSq, yellowSq) {
+        const a = {},
+            b = {};
+
+        a.x = parseFloat(getComputedStyle(redSq).left);
+        a.y = parseFloat(getComputedStyle(redSq).top);
+        a.x1 = parseFloat(getComputedStyle(redSq).left) + parseFloat(getComputedStyle(redSq).width);
+        a.y1 = parseFloat(getComputedStyle(redSq).top) + parseFloat(getComputedStyle(redSq).height);
+
+        b.x = parseFloat(getComputedStyle(yellowSq).left);
+        b.y = parseFloat(getComputedStyle(yellowSq).top);
+        b.x1 = parseFloat(getComputedStyle(yellowSq).left) + parseFloat(getComputedStyle(yellowSq).width);
+        b.y1 = parseFloat(getComputedStyle(yellowSq).top) + parseFloat(getComputedStyle(yellowSq).height);
+
+        // if (!(a.y < b.y1 || a.y1 > b.y || a.x1 < b.x || a.x > b.x1)) { // ось "у" направлена вверх
+        if (!(a.y > b.y1 || a.y1 < b.y || a.x1 < b.x || a.x > b.x1)) { // ось "у" направлена вниз
+            intrsctField.style.color = 'red';
+            intrsctField.value = '! Intersect detected !';
+        } else {
+            intrsctField.style.color = 'black';
+            intrsctField.value = 'No intersect';
+        }
+    }
+
+    controlField.addEventListener('change', (event) => {
+        const fieldId = event.target.getAttribute('id');
+        switch (fieldId) {
+            case 'coordXr':
+                redSquare.style.left = computeStyle(redSquare, 'x', event);
+                break;
+            case 'coordYr':
+                redSquare.style.top = computeStyle(redSquare, 'y', event);
+                break;
+            case 'coordWr':
+                redSquare.style.width = event.target.value + 'px';
+                break;
+            case 'coordHr':
+                redSquare.style.height = event.target.value + 'px';
+                break;
+            case 'coordXy':
+                yellowSquare.style.left = computeStyle(yellowSquare, 'x', event);
+                break;
+            case 'coordYy':
+                yellowSquare.style.top = computeStyle(yellowSquare, 'y', event);
+                break;
+            case 'coordWy':
+                yellowSquare.style.width = event.target.value + 'px';
+                break;
+            case 'coordHy':
+                yellowSquare.style.height = event.target.value + 'px';
+                break;
+            default:
+                alert('Field with such "ID" doesn\'t exist!');
+                break;
+        }
+        detectIntersect(intersectField, redSquare, yellowSquare);
+    });
+</script>
+</body>
+</html>

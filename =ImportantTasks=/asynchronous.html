@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Asynchronous JavaScript</title>
+</head>
+
+<body>
+  <h1>Asynchronous JavaScript</h1>
+  <script>
+
+    function getRecipe() {
+      setTimeout(() => {
+        const recipeId = [523, 883, 432, 974];
+        console.log(recipeId);
+
+        setTimeout(id => {
+          const recipe = { title: 'Tomato pasta', publisher: 'Johnas' };
+          console.log(`${id}: ${recipe.title}`);
+
+          setTimeout(publisher => {
+            console.log(publisher);
+
+          }, 1000, recipe.publisher);
+        }, 1000, recipeId[2]);
+      }, 1000);
+    }
+    // getRecipe();
+
+    // ===================================Promises=======================================
+    function getIDs() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([523, 883, 432, 974]);
+        }, 1000);
+      });
+    }
+
+    function getRecipe(recId) {
+      return new Promise((resolve, reject) => {
+        setTimeout(id => {
+          const recipe = { id: id, title: 'Tomato pasta', publisher: 'Johnas' };
+          resolve(recipe);
+        }, 1000, recId);
+      });
+    }
+
+    function getPublisher(publisher) {
+      return new Promise((resolve, reject) => {
+        setTimeout(p => {
+          resolve(p)
+        }, 1000, publisher);
+      });
+    }
+
+    // getIDs()
+    //   .then(IDs => {
+    //     console.log(IDs);
+    //     return getRecipe(IDs[2])
+    //   })
+    //   .then(recipe => {
+    //     console.log(recipe);
+    //     return getPublisher(recipe.publisher);
+    //   })
+    //   .then(publisher => {
+    //     console.log(publisher);
+    //   })
+    //   .catch(e => {
+    //     console.log(`ERROR! ${e}`);
+    //   })
+
+    // async ВСЕГДА return Promise; await - просто означает асинхронное задание
+    // async/await можно рассматривать как еще один вариант работы с промисами
+    async function getRecipesAW() {
+      const IDs = await getIDs(); // IDs присвоятся только в случае resolve() внутри getIDs(), иначе ошибка
+      console.log(IDs);
+      const recipe = await getRecipe({ id: IDs[2], title: 'Tomato pasta', publisher: 'Johnas' });
+      console.log(recipe);
+      const publisher = await getPublisher(recipe.publisher);
+      console.log(publisher);
+      return recipe;
+    }
+    // const rec = getRecipesAW();
+    // console.log(rec); // Promise {<pending>}, т.к. к этому моменту интерпретатор еще не дошел до recipe
+
+    // ========================AJAX(Asynchronous Javascript And XML)===============================
+    function getWeather(cityId) {
+      fetch(`https://cors.io/?https://www.metaweather.com/api/location/${cityId}/`)
+        .then(result => {
+          console.log(result);
+          return result.json(); // вернет Promise
+        })
+        .then(data => {
+          console.log(data);
+          const today = data.consolidated_weather[0];
+          console.log(`Temperatures in ${data.title} is ${today.the_temp} C.`);
+        })
+        .catch(err => {
+          console.log(`!ERROR! ${err}`);
+        });
+    }
+
+    async function getWeatherAW(cityId) {
+      try {
+        const result = await fetch(`https://cors.io/?https://www.metaweather.com/api/location/${cityId}/`);
+        const data = await result.json();
+        const today = data.consolidated_weather[0];
+        console.log(`Temperatures in ${data.title} is ${today.the_temp} C.`);
+      } catch (err) {
+        console.log(`!ERROR! ${err}`);
+      }
+    }
+    // getWeather(2487956);
+    getWeatherAW(2487956)
+
+
+
+
+    console.warn('main() finished.');
+  </script>
+</body>
+
+</html>
