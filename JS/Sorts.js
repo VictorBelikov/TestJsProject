@@ -61,7 +61,7 @@ function bubbleSort(arr) {
   return arr;
 }
 
-// =============== Вставками (сложность: O(N**2)) =============================
+// =============== Вставками (сложность: O(N^2)) =============================
 function insertionSort(arr) {
   for (let i = 0; i < arr.length; i++) {
     const current = arr[i];
@@ -75,7 +75,7 @@ function insertionSort(arr) {
   return arr;
 }
 
-// =============== Шелла(сложность: O(N**3/2)) ================================
+// =============== Шелла(сложность: O((n * log(n))^2) ================================
 function shellSort(arr) {
   let incr = Math.floor(arr.length / 2);
 

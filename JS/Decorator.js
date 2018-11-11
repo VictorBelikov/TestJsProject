@@ -30,7 +30,7 @@ function timeDecorator(fn, fnName) {
   };
 }
 
-fac = logResultDecorator(fac, "factorial");
-fac = callCountDecorator(fac, "factorial");
-fac = timeDecorator(fac, "factorial");
+fac = logResultDecorator(fac, 'factorial');
+fac = callCountDecorator(fac, 'factorial');
+fac = timeDecorator(fac, 'factorial');
 fac(5);

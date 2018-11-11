@@ -1,15 +1,23 @@
 {
-  "name": "test_project",
+  "name": "testwebproject",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "V1ctoR",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VictorBelikov/TestJsProject.git"
+  },
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VictorBelikov/TestJsProject/issues"
+  },
+  "homepage": "https://github.com/VictorBelikov/TestJsProject#readme",
   "devDependencies": {
-    "eslint": "^5.5.0",
+    "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0"
   }
