@@ -21,8 +21,8 @@
 const memo = [];
 function fibonacci(n) {
   if (memo[n]) return memo[n]; // если есть в массиве, то высчитывать не будем
-  let fib = 0,
-    next = 1;
+  let fib = 0;
+  let next = 1;
 
   for (let i = 0; i < n; i++) {
     memo[i] = fib;

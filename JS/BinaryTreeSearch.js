@@ -9,7 +9,7 @@ function BinaryTreeSearch() {
   this.root = null;
 }
 
-BinaryTreeSearch.prototype.add = function(data) {
+BinaryTreeSearch.prototype.add = function (data) {
   const node = new Node(data);
   if (!this.root) {
     this.root = node;
@@ -37,7 +37,7 @@ BinaryTreeSearch.prototype.add = function(data) {
   return this;
 };
 
-BinaryTreeSearch.prototype.search = function(data) {
+BinaryTreeSearch.prototype.search = function (data) {
   let current = this.root;
   while (current) {
     if (current.data === data) return true;
@@ -74,7 +74,7 @@ function removeNode(node, data) {
   return node; // Возвр.текущий узел
 }
 
-BinaryTreeSearch.prototype.remove = function(data) {
+BinaryTreeSearch.prototype.remove = function (data) {
   removeNode(this.root, data);
 };
 

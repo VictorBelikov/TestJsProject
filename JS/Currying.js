@@ -18,9 +18,9 @@
 // =======================================================================
 
 // тут мясо
-Function.prototype.myBind = function(context, ...args) {
+Function.prototype.myBind = function (context, ...args) {
   const callContext = this;
-  return function(...restArgs) {
+  return function (...restArgs) {
     return callContext.apply(context, args.concat(restArgs));
   };
 };
@@ -38,7 +38,7 @@ function curry(func) {
 
 // работает также, как "мясо", но проще понять
 function curry2(fn, ...args) {
-  return function(arg) {
+  return function (arg) {
     const allArgs = args.concat(arg);
     if (allArgs.length === fn.length) {
       return fn(...allArgs);

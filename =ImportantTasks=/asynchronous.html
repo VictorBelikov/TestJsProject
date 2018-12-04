@@ -73,7 +73,7 @@
     //   })
 
     // async ВСЕГДА return Promise; await - просто означает асинхронное задание
-    // async/await можно рассматривать как еще один вариант работы с промисами
+    // async/await подкапотом - сочетание промисов и генераторов
     async function getRecipesAW() {
       const IDs = await getIDs(); // IDs присвоятся только в случае resolve() внутри getIDs(), иначе ошибка
       console.log(IDs);

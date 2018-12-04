@@ -10,11 +10,11 @@ function SinglyLinkedList() {
   this.numOfValues = 0;
 }
 
-SinglyLinkedList.prototype.length = function() {
+SinglyLinkedList.prototype.length = function () {
   return this.numOfValues;
 };
 
-SinglyLinkedList.prototype.add = function(data) {
+SinglyLinkedList.prototype.add = function (data) {
   const node = new Node(data);
   if (!this.head) {
     this.head = node;
@@ -26,7 +26,7 @@ SinglyLinkedList.prototype.add = function(data) {
   this.numOfValues++;
 };
 
-SinglyLinkedList.prototype.remove = function(data) {
+SinglyLinkedList.prototype.remove = function (data) {
   let current = this.head;
   let previous = this.head;
 
@@ -55,13 +55,13 @@ function Stack() {
   this.stack = [];
 }
 
-Stack.prototype.push = function(val) {
+Stack.prototype.push = function (val) {
   this.stack.push(val);
 };
-Stack.prototype.pop = function() {
+Stack.prototype.pop = function () {
   return this.stack.pop();
 };
-Stack.prototype.peek = function() {
+Stack.prototype.peek = function () {
   return this.stack[this.stack.length - 1];
 };
 
@@ -70,12 +70,12 @@ function Queue() {
   this.queue = [];
 }
 
-Queue.prototype.enqueue = function(val) {
+Queue.prototype.enqueue = function (val) {
   this.queue.push(val);
 };
-Queue.prototype.dequeue = function() {
+Queue.prototype.dequeue = function () {
   return this.queue.shift();
 };
-Queue.prototype.peek = function() {
+Queue.prototype.peek = function () {
   return this.queue[0];
 };

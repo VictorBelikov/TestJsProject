@@ -106,9 +106,13 @@ function merge(left, right) {
 
 function mergeSort(arr) {
   if (arr.length < 2) return arr;
-  const middle = Math.floor(arr.length / 2),
-    left = arr.slice(0, middle), // не включая middle
-    right = arr.slice(middle);
+  const middle = Math.floor(arr.length / 2);
+
+    
+const left = arr.slice(0, middle);
+ // не включая middle
+    
+const right = arr.slice(middle);
   return merge(mergeSort(left), mergeSort(right));
 }
 
