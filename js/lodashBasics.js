@@ -1,18 +1,84 @@
-// https://www.youtube.com/watch?v=RIp8cF5yTY0&feature=youtu.be
-// Обратить внимание на методы массивов; информация по критериям из объекта
-
 /** #0 Simple utilities */
+
 _.noop(); // заглушка; ничего не делает всегда возвр. undefined
 _.identity(3); // 3; заглушка - возвр. 1-ый арг., кот. принимает
+_.round(460, -2); // 500; округляется 60 вверх
 
 
-/** #1  */
+/** #1 Type/Value checks/Conversions */
+
+const obj4 = { test: 1, message: 'hello' };
+const obj5 = { test: 1, message: 'hello' };
+
+_.isEqual(obj4, obj5); // true; deep comparison
+
+_.isMatch(obj4, { message: 'hello' }); // true; partial deep comparison
+
+// Преобразует путь в массив
+_.toPath('a.b.c'); // ["a", "b", "c"]
+_.toPath('a[0].b.c'); // ["a", "0", "b", "c"]
 
 
-/** #2  */
+/** #2 Simple operations on Objects  */
 
+const obj6 = { a: [{ b: { c: 3 } }] };
+
+// Путь к св-ву объекта
+_.get(obj6, 'a[0].b.c'); // 3
+_.get(obj6, 'a.b.c'); // undefined
+_.get(obj6, 'a.b.c', 'default'); // 'default'
+_.get(obj6, ['a', '0', 'b', 'c']); // 3
+
+// Создать объект по пути
+_.set({}, 'a.b.c', 1); // {a:{b:{c:1}}}
+_.set(
+  { posts: [{ text: 'post1', comments: [] }] },
+  'posts[0].comments[0].author', 'Den',
+); // { posts: [{ text: 'post1', comments: [{ author: 'Den' }] }] }
+
+// Проверяет OWN property объекта
+_.has(obj6, 'a'); // true
+_.has(obj6, 'a[0].b'); // true
+_.has(obj6, 'toString'); // false; from prototype
+
+// Из объекта сделать другой объект; Not mutate source object
+const obj7 = { a: 1, b: '2', c: 3 };
+_.pick(obj7, ['a', 'c']); // {a: 1, c: 3}
+_.omit(obj7, ['a', 'c']); // {b: '2'}
+
+// Достаем из объекта то, что запросили в виде массива
+const obj8 = { a: [{ b: { c: 3 } }, 4] };
+_.at(obj8, ['a[0].b.c', 'a[1]']); // [3, 4]
+
+// Получить ключи/значения объекта
+function Foo() {
+  this.a = 1;
+  this.b = 2;
+}
+_.keys(new Foo()); // ['a', 'b']
+_.values(new Foo()); // [1, 2]
+_.toPairs(new Foo()); // [['a', 1], ['b', 2]]
+_.keys('hi'); // [1, 2]
+
+// Удалить св-ва из объекта. Удаляет только configurable св-ва.
+const obj9 = { foo: 'hello', bar: 'world' };
+_.unset(obj9, 'foo'); // true
+
+// Объединить объекты
+// _.assign()
+// _.defaultsDeep()
+// _.merge()
 
 /** #3 Simple operations on Arrays */
+
+// Works with any collections, not only with arrays
+const arr3 = [1, 23, 5, 8, 4];
+_.max(arr3); // 23
+_.min(arr3); // 1
+_.sum(arr3); // 41
+_.mean(arr3); // 8.2; average value
+_.size(arr3); // 5
+_.size({ message: 'hello', name: 'Victor' }); // 2
 
 // range([start=0], end, [step=1])
 _.range(4); // [0, 1, 2, 3]
@@ -26,7 +92,7 @@ _.range(0); // []
 // Getting Array Items
 _.head(); // undefined
 _.head([]); // undefined
-_.head(_.range(5)); // 5
+_.head(_.range(5)); // 0
 _.last(_.range(5)); // 4
 _.nth(_.range(5), 42); // undefined
 _.nth(_.range(5), 2); // 2 (second arg is position)
@@ -35,8 +101,8 @@ _.nth(_.range(5), -2); // 3 (second arg is position)
 // Slicing Arrays
 _.drop(); // []
 _.drop(_.range(5), 2); // [2, 3, 4]; выкинуть все до 2-ой позиции
-_.dropRight(_.range(5), 2); // [2, 3, 4]; выкинуть все до 2-ой позиции с конца
-_.initial(); // []
+_.dropRight(_.range(5), 2); // [0, 1, 2]; выкинуть все до 2-ой позиции с конца
+_.initial(); // []; берет все кроме последнего эл-та в массиве
 _.initial(_.range(5)); // [0, 1, 2, 3]
 _.slice(_.range(5), 1, 3); // [1, 2]
 _.slice(_.range(5), -1, 1); // []

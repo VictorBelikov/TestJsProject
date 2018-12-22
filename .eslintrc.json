@@ -3,7 +3,8 @@
     "airbnb-base"
   ],
   "globals": {
-    "_": true
+    "_": true,
+    "Chart": true
   },
   "rules": {
     "func-names": "off",
@@ -14,7 +15,8 @@
     "no-param-reassign": "off",
     "no-return-assign": "off",
     "no-prototype-builtins": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "no-extend-native": "off"
   },
   "env": {
     "browser": true,

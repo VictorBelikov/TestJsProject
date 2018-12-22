@@ -106,7 +106,9 @@
     async function getWeatherAW(cityId) {
       try {
         const result = await fetch(`https://cors.io/?https://www.metaweather.com/api/location/${cityId}/`);
+        console.log(result);
         const data = await result.json();
+        console.log(data);
         const today = data.consolidated_weather[0];
         console.log(`Temperatures in ${data.title} is ${today.the_temp} C.`);
       } catch (err) {
