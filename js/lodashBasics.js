@@ -1,9 +1,11 @@
+import _ from 'lodash';
+
+
 /** #0 Simple utilities */
 
 _.noop(); // заглушка; ничего не делает всегда возвр. undefined
 _.identity(3); // 3; заглушка - возвр. 1-ый арг., кот. принимает
 _.round(460, -2); // 500; округляется 60 вверх
-
 
 /** #1 Type/Value checks/Conversions */
 

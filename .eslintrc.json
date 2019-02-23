@@ -3,7 +3,6 @@
     "airbnb-base"
   ],
   "globals": {
-    "_": true,
     "Chart": true
   },
   "rules": {

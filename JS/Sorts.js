@@ -21,7 +21,8 @@ function quickSortC(arr, startP, endP) {
   if (endP > start) quickSortC(arr, start, endP);
 }
 
-// Из quickSort() всегда будет возвращен самый маленький эл-т, кот. будет объединен с чуть большим el.
+// Из quickSort() всегда будет возвращен самый маленький эл-т, кот.
+// будет объединен с чуть большим el.
 function quickSort(arr) {
   if (arr.length < 2) return arr;
   const left = [];
@@ -33,6 +34,7 @@ function quickSort(arr) {
   }
   return quickSort(left).concat(el, quickSort(right));
 }
+
 // ========================Простым линейным выбором============================
 function lineSelectExchange(arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -49,6 +51,7 @@ function lineSelectExchange(arr) {
     arr[i] = minEl;
   }
 }
+
 // Сортировка пузырьком
 function bubbleSort(arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -108,11 +111,10 @@ function mergeSort(arr) {
   if (arr.length < 2) return arr;
   const middle = Math.floor(arr.length / 2);
 
-    
-const left = arr.slice(0, middle);
- // не включая middle
-    
-const right = arr.slice(middle);
+  const left = arr.slice(0, middle);
+  // не включая middle
+
+  const right = arr.slice(middle);
   return merge(mergeSort(left), mergeSort(right));
 }
 

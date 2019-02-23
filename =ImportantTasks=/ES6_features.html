@@ -84,7 +84,7 @@
 
       // При вызове friends.map(), this внутри map будет массив friends, но внутри колбэка this === Window. Мы до вызова крепим колбэку внешний this, который равен Person = {}, либо стрелочная функция автоматически запоминает внешний this.
       const arr = friends.map(function (el) {
-        console.log(this); // Window or Person = {} 
+        console.log(this); // Window or Person = {}
         return `${this.name} is friends with ${el}`;
       }.bind(this)); // используем bind() либо стрелочную
       console.log(arr);
@@ -195,6 +195,10 @@
         this.job = job;
       }
 
+       myObj = {
+        name: 'victor'
+      };
+
       calculateAge() {
         const age = new Date().getFullYear() - this.yearOfBirth;
         console.log(age);
@@ -213,8 +217,17 @@
         this.medals = medals;
       }
 
+      myObj = {
+        surname: 'Belikov'
+      };
+
       wonMedal() {
         console.log(++this.medals);
+      }
+
+      calculateAge() {
+        super.calculateAge();
+        console.log(this.myObj);
       }
     }
 
