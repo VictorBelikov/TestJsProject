@@ -15,7 +15,11 @@
     "no-return-assign": "off",
     "no-prototype-builtins": "off",
     "no-restricted-syntax": "off",
-    "no-extend-native": "off"
+    "no-extend-native": "off",
+    "arrow-parens": "off",
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off",
+    "no-loop-func": "off"
   },
   "env": {
     "browser": true,

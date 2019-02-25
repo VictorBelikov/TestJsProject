@@ -1,4 +1,4 @@
-// ============== Хоара(Быстрая).(worst: O(N^2; average: n * log(N)) ==========
+// ============== Хоара(Быстрая).(n * log(N)) ==========
 function quickSortC(arr, startP, endP) {
   let start = startP;
   let end = endP;
@@ -52,7 +52,7 @@ function lineSelectExchange(arr) {
   }
 }
 
-// Сортировка пузырьком
+// Сортировка пузырьком сложность: O(N^2)
 function bubbleSort(arr) {
   for (let i = 0; i < arr.length; i++) {
     for (let j = i + 1; j < arr.length; j++) {
@@ -110,11 +110,8 @@ function merge(left, right) {
 function mergeSort(arr) {
   if (arr.length < 2) return arr;
   const middle = Math.floor(arr.length / 2);
-
-  const left = arr.slice(0, middle);
-  // не включая middle
-
-  const right = arr.slice(middle);
+  const left = arr.slice(0, middle); // не включая middle
+  const right = arr.slice(middle); // от middle и до конца
   return merge(mergeSort(left), mergeSort(right));
 }
 

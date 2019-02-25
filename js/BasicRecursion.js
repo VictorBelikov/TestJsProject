@@ -37,7 +37,7 @@ function fibonacci(n) {
 // console.log(fibonacci(20)); // 6765
 
 
-// ======================= Basic recurtion ====================================
+// ======================= Basic recursion ====================================
 const pow = (x, n) => {
   return n === 1 ? x : x * pow(x, n - 1);
 };

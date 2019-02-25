@@ -14,6 +14,7 @@ function f2(arr) {
 
 // Return original array concatenated with its mirror
 function f3(arr) {
+  // return [...arr].concat(arr.reverse());
   return arr.concat(arr.slice().reverse());
 }
 // console.log(f3([10, 25, 35, 50])); // [10, 25, 35, 50, 50, 35, 25, 10]
@@ -79,7 +80,7 @@ function f11(str) {
   const stack = [];
   for (let i = 0; i < str.length; i++) {
     if (str[i] === '(') stack.push(str[i]);
-    if (str[i] === ')') stack.pop();
+    else if (str[i] === ')') stack.pop();
   }
   return !stack.length;
 }

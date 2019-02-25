@@ -34,7 +34,7 @@
   <div class="box blue">I'm blue!</div>
   <script>
 
-    // ======================================Strings==========================================
+    // ==============================Strings===================================
     const firstName = 'John';
     const lastName = 'Smith';
     const str = `${firstName} ${lastName}`; // John Smith
@@ -44,7 +44,7 @@
     str.includes('ohn'); // true
     firstName.repeat(5); // JohnJohnJohnJohnJohn
 
-    // =====================================Arrow function====================================
+    // ===============================Arrow function===========================
     // У фанкшн декларэйшн this всегда Window. В addEventListener() this получается равным эл-ту потому что callback вызывается отложенно по событию, и во время этого вызова эл-т передает callback свой контекст.
     const boxGreen = {
       color: 'green',
@@ -74,7 +74,7 @@
     boxGreen.clickMe();
     boxBlue.clickMe();
 
-    // =====================================Arrow function====================================
+    // ===============================Arrow function===========================
     function Person(name) {
       this.name = name;
     }
@@ -93,11 +93,11 @@
     const friends = ['Bob', 'Jane', 'Mark'];
     // new Person('Victor').myFriends(friends);
 
-    // =================================Destructuring=========================================
+    // ===========================Destructuring================================
     const [name, age] = ['John', 26];
     // console.log(name, age); // John 26
 
-    // =================================Destructuring=========================================
+    // ===========================Destructuring================================
     const person = {
       firstName1: 'John',
       lastName1: 'Smith'
@@ -108,7 +108,7 @@
     const { firstName1: a, lastName1: b } = person;
     // console.log(a, b); // John Smith
 
-    // =================================Destructuring=========================================
+    // ===========================Destructuring================================
     function simpleCalc(num1, num2) {
       const num3 = 10;
       return [num3 + num1, num3 + num2];
@@ -116,7 +116,7 @@
     const [i, j] = simpleCalc(2, 5);
     // console.log(i, j); // 12 15
 
-    // ======================================Arrays============================================
+    // ================================Arrays==================================
     // Т.к. в JS динамическая типизация и в массиве могут лежать совершенно разные эл-ты разных размеров, то в отличии от С, массив не занимает ячейки памяти подряд, а диоптимизируется до hashmap. Однако, если в массиве лежат эл-ты одинаковых типов, то JS движки оптимизируют такой массив к нативному массиву.
     Array.of(1, 'hello', false); // [1, 'hello', false]
     [77, [1, 2], [3, 4, 5, 6], [7], [8, 9]].reduce((sum, el) => sum.concat(el), []); // плоский массив
@@ -133,13 +133,13 @@
     ages.findIndex(el => el >= 18); // 3; 1-ый попавшийся индекс
     ages.find(el => el >= 18); // 21; 1-ый попавшийся эл-т
 
-    // ======================================Spread operator===================================
+    // ===========================Spread operator==============================
     const family1 = ['John', 'Jane', 'Mark'];
     const family2 = ['Mary', 'Bob', 'Ann'];
     const bigFamily = [...family1, 'Lily', ...family2]; // -->
     // ["John", "Jane", "Mark", "Lily", "Mary", "Bob", "Ann"]
 
-    // ======================================Maps(ключ-значение)===============================
+    // ============================Maps(ключ-значение)=========================
     // В отличии от объектов, ключом может быть что угодно, а не только строка
     const question = new Map();
     question.set('question', 'What is the official name of the latest major JS version?');
@@ -164,7 +164,7 @@
       // console.log(key, val);
     }
 
-    // ======================================Classes=========================================
+    // =================================Classes================================
 
     // function Person1(name, yearOfBirth, job) {
     //   this.name = name;
@@ -195,6 +195,7 @@
         this.job = job;
       }
 
+      // doesnt support fields yet
        myObj = {
         name: 'victor'
       };
