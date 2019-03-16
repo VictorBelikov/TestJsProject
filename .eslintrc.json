@@ -19,7 +19,19 @@
     "arrow-parens": "off",
     "arrow-body-style": "off",
     "prefer-arrow-callback": "off",
-    "no-loop-func": "off"
+    "no-loop-func": "off",
+    "no-underscore-dangle": "off",
+    "no-restricted-globals": "off",
+    "operator-linebreak": "off",
+    "prefer-rest-params": "off",
+    "guard-for-in": "off",
+    "implicit-arrow-linebreak": "off",
+    "space-before-function-paren": "off",
+    "no-empty": "off",
+    "no-trailing-spaces": "off",
+    "eol-last": "off",
+    "consistent-return": "off",
+    "wrap-iife": "off"
   },
   "env": {
     "browser": true,

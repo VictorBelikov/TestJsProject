@@ -1,4 +1,3 @@
-// ================================== Односвязный список ======================
 function Node(data) {
   this.data = data;
   this.next = null;
@@ -7,12 +6,13 @@ function Node(data) {
 function SinglyLinkedList() {
   this.head = null;
   this.tail = null;
-  this.numOfValues = 0;
-}
+  let _numOfValues = 0;
 
-SinglyLinkedList.prototype.length = function () {
-  return this.numOfValues;
-};
+  Object.defineProperty(this, 'length', {
+    get: () => _numOfValues,
+    set: (value) => _numOfValues = value,
+  });
+}
 
 SinglyLinkedList.prototype.add = function (data) {
   const node = new Node(data);
@@ -23,7 +23,7 @@ SinglyLinkedList.prototype.add = function (data) {
     this.tail.next = node;
     this.tail = this.tail.next;
   }
-  this.numOfValues++;
+  this.length++;
 };
 
 SinglyLinkedList.prototype.remove = function (data) {
@@ -32,10 +32,10 @@ SinglyLinkedList.prototype.remove = function (data) {
 
   while (current) {
     if (current.data === data) {
-      if (this.head.data === data) this.head = current.next; // Если искомый - голова
-      if (this.tail.data === data) this.tail = previous; // Если искомый - хвост
+      if (this.head.data === data) this.head = current.next;
+      if (this.tail.data === data) this.tail = previous;
       previous.next = current.next;
-      this.numOfValues--;
+      this.length--;
     }
     previous = current;
     current = current.next;
@@ -78,4 +78,28 @@ Queue.prototype.dequeue = function () {
 };
 Queue.prototype.peek = function () {
   return this.queue[0];
+};
+
+// ================================== Set =====================================
+function Set() {
+  this.data = {};
+  this.length = 0;
+}
+
+Set.prototype.has = function (item) {
+  return typeof this.data[item] !== 'undefined';
+};
+
+Set.prototype.add = function (item) {
+  if (!this.data.has(item)) {
+    this.data[item] = true;
+    this.length++;
+  }
+};
+
+Set.prototype.remove = function (item) {
+  if (this.data.has(item)) {
+    delete this.data[item];
+    this.length--;
+  }
 };

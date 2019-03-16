@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="ie=edge" http-equiv="X-UA-Compatible" />
   <title>ES6_features</title>
   <style>
     .box {
@@ -30,213 +29,208 @@
 </head>
 
 <body>
-  <div class="box green">I'm green!</div>
-  <div class="box blue">I'm blue!</div>
-  <script>
+<div class="box green">I'm green!</div>
+<div class="box blue">I'm blue!</div>
+<script>
+  // ==============================Strings===================================
+  const firstName = 'John';
+  const lastName = 'Smith';
+  const str = `${firstName} ${lastName}`; // John Smith
 
-    // ==============================Strings===================================
-    const firstName = 'John';
-    const lastName = 'Smith';
-    const str = `${firstName} ${lastName}`; // John Smith
+  str.startsWith('J'); // true
+  str.endsWith('th'); // true
+  str.includes('ohn'); // true
+  firstName.repeat(5); // JohnJohnJohnJohnJohn
 
-    str.startsWith('J'); // true
-    str.endsWith('th'); // true
-    str.includes('ohn'); // true
-    firstName.repeat(5); // JohnJohnJohnJohnJohn
+  // ===============================Arrow function===========================
+  const boxGreen = {
+    color: 'green',
+    position: 1,
+    clickMe() {
+      const that = this;
+      document.querySelector('.green').addEventListener('click', function () {
+        console.log(this); // <div class="box green">I'm green!</div>
+        console.log(`${this.color}, ${this.position}`); // undefined, undefined
+        console.log(`${that.color}, ${that.position}`); // green, 1
+      });
+    },
+  };
 
-    // ===============================Arrow function===========================
-    // У фанкшн декларэйшн this всегда Window. В addEventListener() this получается равным эл-ту потому что callback вызывается отложенно по событию, и во время этого вызова эл-т передает callback свой контекст.
-    const boxGreen = {
-      color: 'green',
-      position: 1,
-      clickMe() {
-        const that = this;
-        document.querySelector('.green').addEventListener('click', function () {
-          console.log(this); // <div class="box green">I'm green!</div>
-          console.log(`${this.color}, ${this.position}`); // undefined, undefined
-          console.log(`${that.color}, ${that.position}`); // green, 1
-        })
-      }
-    }
+  const boxBlue = {
+    color: 'blue',
+    position: 2,
+    clickMe() {
+      // Стрелочная функция автоматически запомнила внешний this.
+      document.querySelector('.blue').addEventListener('click', () => {
+        console.log(this); // boxBlue = {}
+        console.log(`${this.color}, ${this.position}`); // blue, 2
+      });
+    },
+  };
 
-    const boxBlue = {
-      color: 'blue',
-      position: 2,
-      clickMe() {
-        // Стрелочная функция автоматически запомнила внешний this.
-        document.querySelector('.blue').addEventListener('click', () => {
-          console.log(this); // boxBlue = {}
-          console.log(`${this.color}, ${this.position}`); // blue, 2
-        })
-      }
-    }
+  boxGreen.clickMe();
+  boxBlue.clickMe();
 
-    boxGreen.clickMe();
-    boxBlue.clickMe();
+  // ===============================Arrow function===========================
+  function Person(name) {
+    this.name = name;
+  }
 
-    // ===============================Arrow function===========================
-    function Person(name) {
-      this.name = name;
-    }
+  Person.prototype.myFriends = function (friends) {
+    console.log(this); // Person1 = {}
 
-    Person.prototype.myFriends = function (friends) {
-      console.log(this); // Person = {}
-
-      // При вызове friends.map(), this внутри map будет массив friends, но внутри колбэка this === Window. Мы до вызова крепим колбэку внешний this, который равен Person = {}, либо стрелочная функция автоматически запоминает внешний this.
-      const arr = friends.map(function (el) {
-        console.log(this); // Window or Person = {}
+    // При вызове friends.map(), this внутри map будет массив friends; если функции не вызваны в каком-либо контексте у них this всегда window; bind() - крепит this ближайшего scope, как и стрелочная функция.
+    const arr = friends.map(
+      function (el) {
+        console.log(this); // Window or Person1 = {}
         return `${this.name} is friends with ${el}`;
-      }.bind(this)); // используем bind() либо стрелочную
-      console.log(arr);
+      }.bind(this),
+    ); // используем bind() либо стрелочную
+    console.log(arr);
+  };
+
+  const friends = ['Bob', 'Jane', 'Mark'];
+  // new Person1('Victor').myFriends(friends);
+
+  // ===========================Destructuring================================
+  const [name, age] = ['John', 26];
+  // console.log(name, age); // John 26
+
+  // ===========================Destructuring================================
+  const person = {
+    firstName1: 'John',
+    lastName1: 'Smith',
+  };
+  const { firstName1, lastName1 } = person;
+  // console.log(firstName1, lastName1); // John Smith
+
+  const { firstName1: a, lastName1: b } = person;
+  // console.log(a, b); // John Smith
+
+  // ===========================Destructuring================================
+  function simpleCalc(num1, num2) {
+    const num3 = 10;
+    return [num3 + num1, num3 + num2];
+  }
+
+  const [i, j] = simpleCalc(2, 5);
+  // console.log(i, j); // 12 15
+
+  // ================================Arrays==================================
+  // Т.к. в JS динамическая типизация и в массиве могут лежать совершенно разные эл-ты разных размеров, то в отличии от С, массив не занимает ячейки памяти подряд, а диоптимизируется до hashmap. Однако, если в массиве лежат эл-ты одинаковых типов, то JS движки оптимизируют такой массив к нативному массиву.
+  Array.of(1, 'hello', false); // [1, 'hello', false]
+  [77, [1, 2], [3, 4, 5, 6], [7], [8, 9]].reduce((sum, el) => sum.concat(el), []); // плоский массив
+
+  const boxes = document.querySelectorAll('.box');
+  // const boxesArr = [].slice.call(boxes); // превратили в массив одалживанием метода
+  const boxesArr = Array.from(boxes); // превратили в массив новым ES6 методом
+  // Вместо старого for. Можем перебирать массивы, объекты
+  for (const el of boxesArr) {
+    console.log(/*el*/); // <div class="box green">I'm green!</div>
+  }
+
+  const ages = [12, 17, 8, 21, 14, 19];
+  ages.findIndex((el) => el >= 18); // 3; 1-ый попавшийся индекс
+  ages.find((el) => el >= 18); // 21; 1-ый попавшийся эл-т
+
+  // ===========================Spread operator==============================
+  const family1 = ['John', 'Jane', 'Mark'];
+  const family2 = ['Mary', 'Bob', 'Ann'];
+  const bigFamily = [...family1, 'Lily', ...family2]; // -->
+  // ["John", "Jane", "Mark", "Lily", "Mary", "Bob", "Ann"]
+
+  // ============================Maps(ключ-значение)=========================
+  // В отличии от объектов, ключом может быть что угодно, а не только строка
+  const question = new Map();
+  question.set(
+    'question',
+    'What is the official name of the latest major JS version?',
+  );
+  question.set(1, 'ES5');
+  question.set(2, 'ES6');
+  question.set(3, 'ES2015');
+  question.set(4, 'ES7');
+  question.set('correct', 3);
+  question.set(true, 'Correct answer!');
+  question.set(false, 'Wrong, please try again.');
+
+  question.get('question'); // What is the official name of the latest major JS version?
+  question.get(4); // ES7
+  question.size; // 8
+  question.delete(4);
+  question.get(4); // undefined
+  question.has(1); // true
+  // question.forEach((val, key) => console.log(key, val));
+
+  // Деструктуризация, как в строке 117
+  for (const [key, val] of question.entries()) {
+    // console.log(key, val);
+  }
+
+  // =================================Classes================================
+  // function Person1(name, surname) {
+  //   this.name = name;
+  //   this.surname = surname;
+  // }
+  //
+  // Person1.prototype.sayHi = function () {
+  //   console.log('some main functionality');
+  // };
+  //
+  // function Athlete(name, surname, sport, medals) {
+  //   Person1.call(this, name, surname);
+  //   // Person1.apply(this, arguments);
+  //   this.sport = sport;
+  //   this.medals = medals;
+  // }
+  //
+  // // унаследовали; создает объект с указанным прототипом.
+  // Athlete.prototype = Object.create(Person1.prototype);
+  //
+  // Athlete.prototype.sayHi = function () {
+  //   Person1.prototype.sayHi.call(this);
+  //   console.log('some addintional functionality');
+  // };
+  //
+  // Athlete.prototype.wonMedal = function () {
+  //   this.medals++;
+  // };
+
+  class Person1 {
+    constructor(name, surname) {
+      this.name = name;
+      this.surname = surname;
     }
 
-    const friends = ['Bob', 'Jane', 'Mark'];
-    // new Person('Victor').myFriends(friends);
-
-    // ===========================Destructuring================================
-    const [name, age] = ['John', 26];
-    // console.log(name, age); // John 26
-
-    // ===========================Destructuring================================
-    const person = {
-      firstName1: 'John',
-      lastName1: 'Smith'
-    };
-    const { firstName1, lastName1 } = person;
-    // console.log(firstName1, lastName1); // John Smith
-
-    const { firstName1: a, lastName1: b } = person;
-    // console.log(a, b); // John Smith
-
-    // ===========================Destructuring================================
-    function simpleCalc(num1, num2) {
-      const num3 = 10;
-      return [num3 + num1, num3 + num2];
+    sayHi() {
+      console.log('some main functionality');
     }
-    const [i, j] = simpleCalc(2, 5);
-    // console.log(i, j); // 12 15
+  }
 
-    // ================================Arrays==================================
-    // Т.к. в JS динамическая типизация и в массиве могут лежать совершенно разные эл-ты разных размеров, то в отличии от С, массив не занимает ячейки памяти подряд, а диоптимизируется до hashmap. Однако, если в массиве лежат эл-ты одинаковых типов, то JS движки оптимизируют такой массив к нативному массиву.
-    Array.of(1, 'hello', false); // [1, 'hello', false]
-    [77, [1, 2], [3, 4, 5, 6], [7], [8, 9]].reduce((sum, el) => sum.concat(el), []); // плоский массив
-
-    const boxes = document.querySelectorAll('.box');
-    // const boxesArr = [].slice.call(boxes); // превратили в массив одалживанием метода
-    const boxesArr = Array.from(boxes); // превратили в массив новым ES6 методом
-    // Вместо старого for. Можем перебирать массивы, объекты
-    for (const el of boxesArr) {
-      console.log(/*el*/); // <div class="box green">I'm green!</div>
+  class Athlete extends Person1 {
+    constructor(name, surname, sport, medals) {
+      super(name, surname);
+      this.sport = sport;
+      this.medals = medals;
     }
 
-    const ages = [12, 17, 8, 21, 14, 19];
-    ages.findIndex(el => el >= 18); // 3; 1-ый попавшийся индекс
-    ages.find(el => el >= 18); // 21; 1-ый попавшийся эл-т
-
-    // ===========================Spread operator==============================
-    const family1 = ['John', 'Jane', 'Mark'];
-    const family2 = ['Mary', 'Bob', 'Ann'];
-    const bigFamily = [...family1, 'Lily', ...family2]; // -->
-    // ["John", "Jane", "Mark", "Lily", "Mary", "Bob", "Ann"]
-
-    // ============================Maps(ключ-значение)=========================
-    // В отличии от объектов, ключом может быть что угодно, а не только строка
-    const question = new Map();
-    question.set('question', 'What is the official name of the latest major JS version?');
-    question.set(1, 'ES5');
-    question.set(2, 'ES6');
-    question.set(3, 'ES2015');
-    question.set(4, 'ES7');
-    question.set('correct', 3);
-    question.set(true, 'Correct answer!');
-    question.set(false, 'Wrong, please try again.');
-
-    question.get('question'); // What is the official name of the latest major JS version?
-    question.get(4); // ES7
-    question.size; // 8
-    question.delete(4);
-    question.get(4); // undefined
-    question.has(1); // true
-    // question.forEach((val, key) => console.log(key, val));
-
-    // Деструктуризация, как в строке 117
-    for (const [key, val] of question.entries()) {
-      // console.log(key, val);
+    sayHi() {
+      super.sayHi();
+      console.log('some addintional functionality');
     }
 
-    // =================================Classes================================
-
-    // function Person1(name, yearOfBirth, job) {
-    //   this.name = name;
-    //   this.yearOfBirth = yearOfBirth;
-    //   this.job = job;
-    // }
-    // Person1.prototype.calculateAge = function() {
-    //   const age = new Date().getFullYear() - this.yearOfBirth;
-    //   console.log(age);
-    // };
-
-    // function Athlete(name, yearOfBirth, job, olympics, medals) {
-    //   Person1.call(this, name, yearOfBirth, job);
-    //   this.olympics = olympics;
-    //   this.medals = medals;
-    // }
-    // Athlete.prototype = Object.create(Person1.prototype); // унаследовали; создает объект с указанным прототипом.
-    // Athlete.prototype = new Person1(); // то же самое, но объект будет с лишними св-вами от Person1
-    // Athlete.prototype.constructor = Athlete;
-    // Athlete.prototype.wonMedal = function() {
-    //   console.log(++this.medals);
-    // };
-
-    class Person1 {
-      constructor(name, yearOfBirth, job) {
-        this.name = name;
-        this.yearOfBirth = yearOfBirth;
-        this.job = job;
-      }
-
-      // doesnt support fields yet
-       myObj = {
-        name: 'victor'
-      };
-
-      calculateAge() {
-        const age = new Date().getFullYear() - this.yearOfBirth;
-        console.log(age);
-      }
-      // Определяется на уровне класса, а не экземпляра; Person1.greeting(). Это тоже самое, что:
-      // Person1.greeting = function() { console.log('Hello, world!'); }, т.е. присвоили в саму функцию
-      static greeting() {
-        console.log('Hello, world!');
-      }
+    wonMedal() {
+      this.medals++;
     }
+  }
 
-    class Athlete extends Person1 {
-      constructor(name, yearOfBirth, job, olympics, medals) {
-        super(name, yearOfBirth, job); // Person1.call(this, name, yearOfBirth, job);
-        this.olympics = olympics;
-        this.medals = medals;
-      }
-
-      myObj = {
-        surname: 'Belikov'
-      };
-
-      wonMedal() {
-        console.log(++this.medals);
-      }
-
-      calculateAge() {
-        super.calculateAge();
-        console.log(this.myObj);
-      }
-    }
-
-    const johnAthlete = new Athlete('John', 1990, 'swimmer', 3, 10);
-    johnAthlete.calculateAge();
-    johnAthlete.wonMedal();
-
-  </script>
+  const athlete = new Athlete('Victor', 'Belikov', 'running', 5);
+  athlete.sayHi();
+  athlete.wonMedal();
+  console.log(athlete.sport);
+  console.log(athlete.surname);
+  console.log(athlete.medals);
+  console.log(athlete.__proto__);
+</script>
 </body>
-
 </html>

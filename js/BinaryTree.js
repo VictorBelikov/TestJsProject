@@ -5,30 +5,29 @@ function Node(data) {
   this.right = null;
 }
 
-function BinaryTreeSearch() {
+function BinaryTree() {
   this.root = null;
 }
 
-BinaryTreeSearch.prototype.add = function (data) {
+BinaryTree.prototype.add = function (data) {
   const node = new Node(data);
   if (!this.root) {
     this.root = node;
   } else {
-    let current = this.root; // теперь 2 ссылки указ.на объект node - this.root и current
-
+    let current = this.root;
     while (current) {
-      if (node.data < current.data) {
-        if (!current.left) {
-          current.left = node;
-          break;
-        }
-        current = current.left;
-      } else if (node.data > current.data) {
+      if (current.data < data) {
         if (!current.right) {
           current.right = node;
           break;
         }
         current = current.right;
+      } else if (current.data > data) {
+        if (!current.left) {
+          current.left = node;
+          break;
+        }
+        current = current.left;
       } else {
         break; // Если такой эл-т уже есть в дереве
       }
@@ -37,7 +36,7 @@ BinaryTreeSearch.prototype.add = function (data) {
   return this;
 };
 
-BinaryTreeSearch.prototype.search = function (data) {
+BinaryTree.prototype.search = function (data) {
   let current = this.root;
   while (current) {
     if (current.data === data) return true;
@@ -54,7 +53,6 @@ function getMin(node) {
 
 function removeNode(node, data) {
   if (!node) return null;
-  // Если данные в корне; посредством рекурсии мы придем к тому, что любые данные будут в корне.
   if (data === node.data) {
     if (!node.left && !node.right) return null; // Если не имеет потомков, заменяем его null
     if (!node.left) return node.right; // Если не имеет только левого потомка, заменяем его правым
@@ -74,12 +72,12 @@ function removeNode(node, data) {
   return node; // Возвр.текущий узел
 }
 
-BinaryTreeSearch.prototype.remove = function (data) {
+BinaryTree.prototype.remove = function (data) {
   removeNode(this.root, data);
 };
 
-const bts = new BinaryTreeSearch();
-bts
+const bt = new BinaryTree();
+bt
   .add(5)
   .add(2)
   .add(18)
@@ -91,10 +89,10 @@ bts
   .add(19)
   .add(16)
   .add(20);
-console.log(bts.search(18)); // true
-bts.remove(18);
-console.log(bts.search(18)); // false
-console.log(bts);
+console.log(bt.search(18)); // true
+bt.remove(18);
+console.log(bt.search(18)); // false
+console.log(bt);
 
 // Если нужно удалить узел, имеющий только одного потомка, то он просто удаляется
 // и замещается следующим.
