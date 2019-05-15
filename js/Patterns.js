@@ -1,17 +1,34 @@
+// =============================== Factory ====================================
+function createCircle(radius = 10, location = { x: 14, y: 56 }) {
+  return {
+    radius,
+    location,
+    draw() {
+      console.log(`circle: radius = ${radius}, x = ${location.x}, y = ${location.y}`);
+    },
+  };
+}
+
+const circle1 = createCircle();
+circle1.draw();
+console.log(circle1);
+
 // =============================== Module =====================================
-const Module = (function () {
-  let sum = 0; // в замыкании
+const Module = (function() {
   const goods = []; // в замыкании
+  let totalSum = 0; // в замыкании
 
   return {
     addProduct(product) {
-      sum += product.price;
       goods.push(product);
+      totalSum += product.price;
     },
-    printProducts() {
-      for (let i = 0; i < goods.length; i++) {
-        console.log(goods[i].name, goods[i].price);
-      }
+
+    printAllProducts() {
+      goods.forEach((el) => {
+        console.log(`${el.name} --> ${el.price}`);
+      });
+      console.log(`Total price: ${totalSum}`);
     },
   };
 })();
@@ -25,10 +42,11 @@ const sault = {
 // Module.printProducts();
 
 // =============================== Singleton ==================================
-const Singleton = (function () {
+// объект, который может иметь только один экземпляр.
+const Singleton = (function() {
   let _instance = null; // в замыкании
 
-  return function () {
+  return function() {
     if (!_instance) _instance = this;
     return _instance;
   };
@@ -38,25 +56,25 @@ const s1 = new Singleton();
 const s2 = new Singleton();
 console.log(s1 === s2); // true
 
-// =============================== Interface ==================================
+// =========================== Fluent Interface ===============================
 function Car() {}
 
-Car.prototype.setMake = function (make) {
+Car.prototype.setMake = function(make) {
   this.make = make;
   return this;
 };
 
-Car.prototype.setModel = function (model) {
+Car.prototype.setModel = function(model) {
   this.model = model;
   return this;
 };
 
-Car.prototype.setYear = function (year) {
+Car.prototype.setYear = function(year) {
   this.year = year;
   return this;
 };
 
-Car.prototype.save = function () {
+Car.prototype.save = function() {
   console.log(`${this.make} ${this.model} ${this.year} was successfully saved`);
   return this;
 };

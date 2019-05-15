@@ -21,8 +21,6 @@ function quickSortC(arr, startP, endP) {
   if (endP > start) quickSortC(arr, start, endP);
 }
 
-// Из quickSort() всегда будет возвращен самый маленький эл-т, кот.
-// будет объединен с чуть большим el.
 function quickSort(arr) {
   if (arr.length < 2) return arr;
   const left = [];
@@ -116,6 +114,7 @@ function mergeSort(arr) {
 }
 
 let myArr = [3, 5, 7, 20, 6, 999, 21, 17, 4, 10, 23, 2, 5, 15, 1];
+// bubbleSort(myArr);
 // quickSortC(myArr, 0, myArr.length - 1);
 // myArr = quickSort(myArr);
 // lineSelectExchange(myArr);

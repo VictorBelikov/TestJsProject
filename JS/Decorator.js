@@ -4,7 +4,7 @@ let fac = function factorial(n) {
 };
 
 function logResultDecorator(fn, fnName) {
-  return function () {
+  return function() {
     const result = fn.apply(this, arguments);
     console.log(`Result ${fnName}: ${result}.`);
     return result;
@@ -13,7 +13,7 @@ function logResultDecorator(fn, fnName) {
 
 function callCountDecorator(fn, fnName) {
   let count = 0;
-  return function () {
+  return function() {
     count++;
     console.log(`Function ${fnName} was called ${count} times.`);
     return fn.apply(this, arguments);
@@ -21,7 +21,7 @@ function callCountDecorator(fn, fnName) {
 }
 
 function timeDecorator(fn, fnName) {
-  return function () {
+  return function() {
     const startTime = performance.now();
     const result = fn.apply(this, arguments);
     const resultTime = (performance.now() - startTime).toFixed(1);
