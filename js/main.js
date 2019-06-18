@@ -1,5 +1,5 @@
 // var setLazybeforeunveilEvent = false;
-//
+
 // if (!setLazybeforeunveilEvent) {
 //   document.addEventListener('lazybeforeunveil', function(e) {
 //     // this.removeEventListener(e.type, arguments.callee);
