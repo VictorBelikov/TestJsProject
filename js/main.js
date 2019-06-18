@@ -1,3 +1,13 @@
+// var setLazybeforeunveilEvent = false;
+//
+// if (!setLazybeforeunveilEvent) {
+//   document.addEventListener('lazybeforeunveil', function(e) {
+//     // this.removeEventListener(e.type, arguments.callee);
+//     setLazybeforeunveilEvent = true;
+//     e.target.setAttribute('loading', 'lazy');
+//   });
+// }
+
 lazySizes.cfg.nativeLoading = {
   setLoadingAttribute: true, // set loading="lazy" into the <img />
 };
