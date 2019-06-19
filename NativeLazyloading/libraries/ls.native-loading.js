@@ -13,7 +13,7 @@
   } else {
     window.addEventListener('lazyunveilread', globalInstall, true);
   }
-}(window, function(window, document, lazySizes) {
+})(window, function(window, document, lazySizes) {
   'use strict';
 
   var imgSupport = 'loading' in HTMLImageElement.prototype;
@@ -48,9 +48,8 @@
         window.removeEventListener('scroll', loader._aLSL, true);
       }, 1000);
     };
-    var currentListenerMap = typeof cfg.nativeLoading.disableListeners == 'object' ?
-      cfg.nativeLoading.disableListeners :
-      listenerMap;
+    var currentListenerMap =
+      typeof cfg.nativeLoading.disableListeners == 'object' ? cfg.nativeLoading.disableListeners : listenerMap;
 
     if (currentListenerMap.scroll) {
       window.addEventListener('load', removeALSL);
@@ -63,16 +62,17 @@
       window.removeEventListener('resize', throttledCheckElements, true);
     }
 
-    Object.keys(currentListenerMap)
-      .forEach(function(name) {
-        if (currentListenerMap[name]) {
-          document.removeEventListener(name, throttledCheckElements, true);
-        }
-      });
+    Object.keys(currentListenerMap).forEach(function(name) {
+      if (currentListenerMap[name]) {
+        document.removeEventListener(name, throttledCheckElements, true);
+      }
+    });
   }
 
   function runConfig() {
-    if (isConfigSet) {return;}
+    if (isConfigSet) {
+      return;
+    }
     isConfigSet = true;
 
     if (imgSupport && iframeSupport && cfg.nativeLoading.disableListeners) {
@@ -84,25 +84,30 @@
     }
 
     if (cfg.nativeLoading.setLoadingAttribute) {
-      window.addEventListener('lazybeforeunveil', function(e) {
-        var element = e.target;
+      window.addEventListener(
+        'lazybeforeunveil',
+        function(e) {
+          var element = e.target;
 
-        if ('loading' in element && !element.getAttribute('loading')) {
-          element.setAttribute('loading', 'lazy');
-        }
-      }, true);
+          if ('loading' in element && !element.getAttribute('loading')) {
+            element.setAttribute('loading', 'lazy');
+          }
+        },
+        true,
+      );
     }
   }
 
   lazySizes.prematureUnveil = function prematureUnveil(element) {
-
     if (!isConfigSet) {
       runConfig();
     }
 
-    if ('loading' in element &&
+    if (
+      'loading' in element &&
       (cfg.nativeLoading.setLoadingAttribute || element.getAttribute('loading')) &&
-      (element.getAttribute('data-sizes') != 'auto' || element.offsetWidth)) {
+      (element.getAttribute('data-sizes') != 'auto' || element.offsetWidth)
+    ) {
       return true;
     }
 
@@ -110,5 +115,4 @@
       return oldPrematureUnveil(element);
     }
   };
-
-}));
+});
