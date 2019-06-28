@@ -1,3 +1,4 @@
-const iframe = document.getElementsByTagName('iframe')[0];
-iframe.setAttribute('data-src', iframe.src);
-iframe.classList.contains('').add('lazyload');
+const mySet = new Set();
+mySet.add('hello');
+mySet.add('hello2');
+console.log(mySet.has('hello'));
