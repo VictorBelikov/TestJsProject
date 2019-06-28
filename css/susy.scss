@@ -1,0 +1,90 @@
+// https://habr.com/ru/post/241844/
+// https://codepen.io/theyve/pen/YwbLzL
+// http://susyone.oddbird.net/guides/reference
+// docroot/sites/syfy/themes/wired/scss/component/blogs/_blog-post.scss - file in syfy project
+
+@import "susy";
+@import "breakpoint";
+
+// ================================== Global susy settings ==============================
+// map 1
+$susy: (
+  columns: 12, // 12 - 100% ширины страницы глобально; we can use span(8) instead span(8 of 12);
+  gutters: 1/4, // отступ между колонками; 1/4 от размера колонки;
+  math: fluid, // nип сетки: static или fluid. static все размеры статичны и задаются в px, fluid - %;
+  output: float, // все эл-ты флоатятся;
+  gutter-position: split, // before/after; split - margin будут с 2 сторон;
+  // gutter-position: inside, // вместо margin использ. padding;
+);
+
+// map 2
+$widelayout: (
+  columns: 24,
+  gutters: 1/4
+  math: fluid,
+  output: float,
+  gutter-position: split,
+  gutter-position: inside,
+);
+
+// map 3
+$map: layout(24 (60px 10px) split static);
+
+// map 1, map 2, map 3 - просто создаются для последующего применения, @include layout() - применяет.
+@include layout($widelayout); // какая карта будет глобально использоваться для страницы
+@include layout(24 1/4 fluid float inside); // глобальная карта, созданная на лету
+@include layout(24 (60px 10px) split static); // глобальная карта; 60px - шир.колонки; 10px - gutters;
+
+// ======================================================================================
+
+@include with-layout(12) { // локально используем layout из 12 колонок
+  body {
+    @include container(500px); // body будет шириной 500px;
+  }
+  
+  main {
+    // 12 - 100% ширины страницы; ширина блока будет занимать 8 частей из 12 - 66%;
+    @include span(8 of 12);
+  }
+  
+  aside {
+    // занимает остальные 4 колоники из 12, оставшихся от main;
+    // вставка будет начинаться с 9 позиции; у aside будет отсутствовать margin-right;
+    @include span(4 at 9 of 12);
+  }
+
+  div.class1 {
+    // 8 колонок из 24, начин. с 0; gutters: 1/8
+    @include span(8 at 0 of 24 1/8);
+  }
+}
+
+// =============================== breakpoint ===========================================
+
+@include breakpoint(1200px) { // css result:  @media (min-width: 1200px) { }
+  @include layout(34); // внутри breakpoint изменили map, теперь за 100% берется 34 колонки
+
+  main {
+    @include span(21); // блок main будет занимать 21 колонку из 34
+    .col1, .col2, .col3 {
+      @include span(7); // будет рассчитывать % от ближайшего верхнего layout(34), затем этот % будет брать от ширины main, кот.== 21 из 34
+      @include span(1 of 3); // тут за 3 колонки уже будет браться ширина main.
+
+      @include pad(5%); // padding left and right: 5% от ширины main;
+      @include suffix(10px); // padding-right: 10px
+      @include prefix(10px); // padding-left: 10px
+
+      @include bleed(20px); // margin left&right&top&bottom: -20px
+      @include bleed-x(20px); // margin left&right: -20px
+      @include bleed-y(20px); // margin top&bottom: -20px
+      @include pull(20px); // margin-left: -20px; push - margin-left: 20px
+      
+      @include push(2); // добавляет пуст.кол. слева (margin-left); рассчет по той же схеме, что и @include span(7);
+      @include pre(2); // добавляет пуст.кол. слева (margin-left); рассчет по той же схеме, что и @include span(7);
+
+      @include gallery(2 of 6); // то же, что и span, только для <img />
+    }
+  }
+}
+
+@include susy-breakpoint(500px, 34) {} // одновременно breakpoint и map в 34 колонки
