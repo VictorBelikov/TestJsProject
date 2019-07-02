@@ -11,10 +11,10 @@
 $susy: (
   columns: 12, // 12 - 100% ширины страницы глобально; we can use span(8) instead span(8 of 12);
   gutters: 1/4, // отступ между колонками; 1/4 от размера колонки;
-  math: fluid, // nип сетки: static или fluid. static все размеры статичны и задаются в px, fluid - %;
+  math: fluid, // тип сетки: static или fluid. static все размеры статичны и задаются в px, fluid - %;
   output: float, // все эл-ты флоатятся;
   gutter-position: split, // before/after; split - margin будут с 2 сторон;
-  // gutter-position: inside, // вместо margin использ. padding;
+  // gutter-position: inside, // вместо margin использ. padding с 2 сторон;
 );
 
 // map 2
@@ -28,16 +28,17 @@ $widelayout: (
 );
 
 // map 3
+// 60px - шир.колонки; 10px - gutters; При span(8) - ширина колонки: (8 * 60) + (7 * 10) = 550px и margin: 0 5px 0;
 $map: layout(24 (60px 10px) split static);
 
 // map 1, map 2, map 3 - просто создаются для последующего применения, @include layout() - применяет.
 @include layout($widelayout); // какая карта будет глобально использоваться для страницы
 @include layout(24 1/4 fluid float inside); // глобальная карта, созданная на лету
-@include layout(24 (60px 10px) split static); // глобальная карта; 60px - шир.колонки; 10px - gutters;
 
 // ======================================================================================
 
-@include with-layout(12) { // локально используем layout из 12 колонок
+@include with-layout(12) { // используем map из 12 колонок для соотв.блока кода
+
   body {
     @include container(500px); // body будет шириной 500px;
   }
@@ -54,7 +55,7 @@ $map: layout(24 (60px 10px) split static);
   }
 
   div.class1 {
-    // 8 колонок из 24, начин. с 0; gutters: 1/8
+    // map для локального блока; 8 колонок из 24, начин. с 0; gutters: 1/8
     @include span(8 at 0 of 24 1/8);
   }
 }
@@ -68,7 +69,7 @@ $map: layout(24 (60px 10px) split static);
     @include span(21); // блок main будет занимать 21 колонку из 34
     .col1, .col2, .col3 {
       @include span(7); // будет рассчитывать % от ближайшего верхнего layout(34), затем этот % будет брать от ширины main, кот.== 21 из 34
-      @include span(1 of 3); // тут за 3 колонки уже будет браться ширина main.
+      @include span(1 of 3); // тут за 3 колонки уже будет браться ширина main, кот.== 21 из 34
 
       @include pad(5%); // padding left and right: 5% от ширины main;
       @include suffix(10px); // padding-right: 10px
