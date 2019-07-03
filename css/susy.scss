@@ -72,20 +72,28 @@ $map: layout(24 (60px 10px) split static);
       @include span(1 of 3); // тут за 3 колонки уже будет браться ширина main, кот.== 21 из 34
 
       @include pad(5%); // padding left and right: 5% от ширины main;
+      @include pad(5px 10px); // padding-left: 5px; padding-right: 10px;
       @include suffix(10px); // padding-right: 10px
       @include prefix(10px); // padding-left: 10px
 
       @include bleed(20px); // margin left&right&top&bottom: -20px
       @include bleed-x(20px); // margin left&right: -20px
       @include bleed-y(20px); // margin top&bottom: -20px
-      @include pull(20px); // margin-left: -20px; push - margin-left: 20px
       
       @include push(2); // добавляет пуст.кол. слева (margin-left); рассчет по той же схеме, что и @include span(7);
-      @include pre(2); // добавляет пуст.кол. слева (margin-left); рассчет по той же схеме, что и @include span(7);
+      @include pre(2); // аналогично push;
+      @include squish(2); // одновременно pre and post;
+      @include post(2); // добавляет пуст.кол. справа (margin-right); рассчет по той же схеме, что и @include span(7);
+      @include pull(2); // добавляет отрицательные пуст.кол. слева (margin-left); рассчет по той же схеме, что и @include span(7);
 
       @include gallery(2 of 6); // то же, что и span, только для <img />
     }
   }
 }
 
-@include susy-breakpoint(500px, 34) {} // одновременно breakpoint и map в 34 колонки
+@include susy-breakpoint(500px, 34, $no-query) { // $no-query использ. для старых браузеров, кот. не поддреж. @media запросы
+  // то же самое что и:
+  // @include breakpoint(500px) {
+    // @include layout(34);
+  // }
+}
