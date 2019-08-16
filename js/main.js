@@ -1,7 +1,6 @@
-//qaru.site/questions/30550/how-can-you-detect-the-version-of-a-browser
-http: //  jQuery 1.9.1 и выше удалили функциональность $.browser.
-
-http://qaru.site/questions/5292316/jquery-cookie-pop-up-to-show-only-once-per-session
+// http://qaru.site/questions/30550/how-can-you-detect-the-version-of-a-browser
+// jQuery 1.9.1 и выше удалили функциональность $.browser.
+// http://qaru.site/questions/5292316/jquery-cookie-pop-up-to-show-only-once-per-session
 
 function getBrowser() {
   var ua = navigator.userAgent,
@@ -21,6 +20,7 @@ function getBrowser() {
   }
 
   M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+
   if ((tem = ua.match(/version\/(\d+)/i)) != null) {
     M.splice(1, 1, tem[1]);
   }
@@ -28,4 +28,5 @@ function getBrowser() {
   return { name: M[0], version: M[1] };
 }
 
-console.log(getBrowser()); // Object { name: "Firefox", version: "42" }
+const browser = getBrowser();
+console.log(typeof +browser.version); // Object { name: "Firefox", version: "42" }
