@@ -2262,7 +2262,7 @@
 
     function getDependencies() {
       debug('AdobePassCore::getDependencies');
-      _accessEnablerProxy.getAccessEnabler(onAccessEnabler);
+      _accessEnablerProxy.getAccessEnabler(onAccessEnabler); // !!! this line needs to be commented to works Auth correctly !!!
     }
 
     function _execute() {
