@@ -1,3 +1,11 @@
+/**
+ * branch- cpcpdk6_prod
+ * docroot/sites/usanetwork/modules/custom/usanetwork_tve_video/js/usa_config_tve_auth2/usa-tve-custom-services.js
+ * нужно закоментить 215стр. window.location.reload();
+ * http://local.usanetwork.com/admin/usanetwork/video - здесть меняем откуда грузить NBCUniCPC.js
+ * http://local.usanetwork.com/wizardingworld/watch/clip-making-memories-the-great-hall - страница для проверки
+ */
+
 (function(NBCUniCPC, undefined) {
   /**
    * @type {Number}
