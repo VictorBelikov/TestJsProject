@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Test Player</title>
+
+  <link rel="stylesheet" href="https://pdk.theplatform.com/pdk6/current/pdk/skins/smooth.css" />
+  <!-- <link rel="alternate" href="http://link.theplatform.com/s/vwUEeC/media/F7Kp_b0_ukh8" type="application/smil+xml" /> -->
+  <link rel="alternate" href="http://feed.theplatform.com/f/dCK2IC/suits_s7ep4" type="application/rss+xml" />
+
+  <script defer src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script defer type="text/javascript" src="http://pdk.theplatform.com/pdk6/current/pdk/player.js"></script>
+  <script defer src="../js/main.js"></script>
+
+  <style type="text/css">
+    .tpPlayer {
+      width: 500px;
+      height: 300px;
+    }
+
+    .firstWrapper {
+      display: inline-block;
+      position: relative;
+    }
+
+    .firstWrapper:hover #next,
+    .firstWrapper:hover #prev {
+      opacity: 0.8;
+    }
+
+    #next,
+    #prev {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 10%;
+      border: none;
+      opacity: 0;
+      background: #000;
+      transition: opacity .5s;
+      cursor: pointer;
+      outline: none;
+    }
+
+    #prev::after {
+      display: block;
+      height: 5px;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 7px;
+      background-image: url('../img/right-arrow--white.svg');
+      background-repeat: no-repeat;
+      content: ' ';
+    }
+  </style>
+</head>
+
+<body>
+  <div class="firstWrapper">
+    <div id="player1" class="tpPlayer" tp:enableKeyboardControls="true">
+
+    </div>
+    <button id="prev"></button>
+    <button id="next"></button>
+  </div>
+</body>
+
+</html>
