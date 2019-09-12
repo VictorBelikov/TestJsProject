@@ -97,3 +97,67 @@ $map: layout(24 (60px 10px) split static);
     // @include layout(34);
   // }
 }
+
+// ================================= SyFy grid ===================
+// Layout breakpoints
+$breakpoints: (
+  nibbler: 320px, /* 20em */
+  amywong: 480px, /* 30em */
+  leela: 640px, /* 48em */
+  zoidberg: 728px, /* 45.5em */
+  ad_swap_grid: 785px,
+  bender: 850px, /* 53.125em */
+  fry: 1240px, /* 77.5em */
+  container: 1440px, /* 90em */
+  morbo: 1500px, /* 93.75em */
+);
+
+// Grid defaults
+$susy: (
+  container-position: center,
+  global-box-sizing: border-box,
+  columns: 4,
+  container: 1440px,
+  debug: (
+    //image: show-columns, // hide, or show-columns
+    color: rgba(242, 99, 171, 0.2),
+  )
+);
+
+// Grid map
+$grids: (
+  nibbler-grid: (
+    columns: 4,
+    gutters: 20px/55px,
+    column-width: 55px,
+    container-position: center,
+    debug: (
+      //image: show-columns, // hide, or show-columns
+      color: rgba(242, 99, 171, 0.2),
+    )
+  ),
+  leela-grid: (
+    columns: 8,
+    gutters: 20px/70px,
+    column-width: 70px,
+    container-position: center,
+    debug: (
+      //image: show-columns, // hide, or show-columns
+      color: rgba(242, 99, 171, 0.2),
+    )
+  ),
+  fry-grid: (
+    columns: 18,
+    gutters: 20px/60px,
+    column-width: 60px,
+    container-position: center,
+    debug: (
+      //image: show-columns, // hide, or show-columns
+      color: rgba(242, 99, 171, 0.2),
+    )
+  )
+);
+
+// Global layout constraints
+$min-width: 320px;
+$max-content-width: 1440px;
