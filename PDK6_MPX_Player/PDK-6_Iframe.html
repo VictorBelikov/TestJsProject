@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<head>
+  <meta name="tp:EnableExternalController" content="true" />
+  <!-- Include a JavaScript file that exposes a replica of the PDK controller.
+             In the URL below, replace mpxAccountPID with your mpx account PID. -->
+  <script src="http://player.theplatform.com/pdk/HNK2IC/tpPdkController.js"></script>
+
+  <!-- Include a script that references the controller. -->
+  <script>
+    window.player1Controller = null;
+    window.player2Controller = null;
+
+    function pause1(setPause) {
+      player1Controller.pause(setPause, ['player1']);
+
+    }
+    function pause2(setPause) {
+      player2Controller.pause(setPause, ['player2']);
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Set the onload attribute of the <iframe> element to call the bind method.
+          Replace the src URL with a link to your player. -->
+  <iframe id="player1" class="myPlayer" width="500" height="300"
+    src="http://player.theplatform.com/p/dCK2IC/FCs6PCAq1_ei/feed/suits_s7ep4?playAll=true&autoPlay=true&excludeSharing=true&mbr=true"
+    onload="window.player1Controller = $pdk.bind(this, false); $pdk.controller.setIFrame(this, true);"
+    seamless="seamless" allowfullscreen>
+  </iframe>
+  <br />
+
+  <!-- Create buttons to control the first player. -->
+  <button onclick="pause1(true)" class='Button'>Pause</button>
+  <button onclick="pause1(false); pause2(true)" class='Button'>Unpause</button>
+  <br />
+
+  <!--Replace the src URL with a link to your player. -->
+  <iframe id="player2" class="myPlayer" width="500" height="300"
+    src="http://player.theplatform.com/p/HNK2IC/_ffpgI4a6CN7/select/media/guid/2304990266/3756680?form=html&endCard=true&hoverCard=true&autoPlay=true&MVPDid=undefined&params=policy%3D121497590%26fallbackSiteSectionId%3D1677712%26siteSectionId%3Dsyfy_video_vod%26manifest%3Dm3u%26switch%3DHLSOriginSecure%26_fw_h_referer%3Dlocal.syfy.com%26schema%3D2.0#playerurl=http%3A%2F%2Flocal.syfy.com%2F12monkeys%2Fvideos%2Fold-times"
+    onload="window.player2Controller = $pdk.bind(this, false); $pdk.controller.setIFrame(this, true);"
+    seamless="seamless" allowfullscreen>
+  </iframe>
+  <br />
+
+  <!-- Create buttons to control the second player. -->
+  <button onclick="pause2(true)" class='Button'>Pause</button>
+  <button onclick="pause2(false); pause1(true)" class='Button'>Unpause</button>
+</body>
+
+</html>
+
+<html>

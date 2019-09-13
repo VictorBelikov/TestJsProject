@@ -1,0 +1,80 @@
+.tpPlayer * {
+  outline: none;
+}
+
+.tpPlayer {
+  position: relative;
+  width: 600px;
+  height: 360px;
+  --background-color: #000;
+  --row-color: #000;
+  --play-overlay-color: RGBA(50, 50, 50, 0.8);
+  --control-background-color: #333333;
+  --expander-color: #333333;
+  --expander-selected-color: none;
+  --expander-hover-color: #222222;
+}
+
+#btnNext,
+#btnPrev {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 10%;
+  border: none;
+  opacity: 0;
+  pointer-events: none;
+  background: #000;
+  outline: none;
+  transition: opacity 0.5s;
+  cursor: default;
+}
+
+#btnNext.fade,
+#btnPrev.fade,
+#btnNext.over,
+#btnPrev.over {
+  opacity: 0.7;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+#btnPrev {
+  left: 0;
+}
+
+#btnPrev::after {
+  background: url('../img/right-arrow--white.svg') no-repeat;
+  left: 20px;
+}
+
+#btnNext::after {
+  background: url('../img/left-arrow--white.svg') no-repeat;
+  right: 20px;
+}
+
+#btnPrev::after,
+#btnNext::after {
+  display: block;
+  background-size: contain;
+  height: 50px;
+  width: 20px;
+  position: absolute;
+  top: 45%;
+  content: '';
+}
+
+.tpPlayer .tpFullscreenView #btnPrev::after,
+.tpPlayer .tpFullscreenView #btnNext::after {
+  height: 70px;
+  width: 40px;
+}
+
+.tpPlayer .tpFullscreenView #btnPrev::after {
+  left: 60px;
+}
+
+.tpPlayer .tpFullscreenView #btnNext::after {
+  right: 60px;
+}
