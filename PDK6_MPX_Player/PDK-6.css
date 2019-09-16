@@ -23,10 +23,20 @@
   height: 100%;
   width: 10%;
   border: none;
-  display: none;
-  opacity: 0.7;
+  opacity: 0;
+  pointer-events: none;
   background: #000;
   outline: none;
+  transition: opacity 0.5s;
+  cursor: default;
+}
+
+#btnNext.fade,
+#btnPrev.fade,
+#btnNext.over,
+#btnPrev.over {
+  opacity: 0.7;
+  pointer-events: auto;
   cursor: pointer;
 }
 

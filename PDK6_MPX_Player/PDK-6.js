@@ -1,30 +1,44 @@
-$(document).ready(function() {
-  const $btnNext = $('<button id="btnNext"></button>');
-  const $btnPrev = $('<button id="btnPrev"></button>');
-  const $player = $('#player .tpVideo');
+document.addEventListener('DOMContentLoaded', function() {
+  const btnNext = document.createElement('button');
+  const btnPrev = document.createElement('button');
+  const player = document.querySelector('#player .tpVideo');
   const controller = $pdk.controller;
   let flagMove = true;
 
-  $player.append($btnPrev, $btnNext);
+  const fadeButtons = function() {
+    flagMove = !flagMove;
+    btnNext.classList.toggle('fade');
+    btnPrev.classList.toggle('fade');
+  };
 
-  $btnNext.click(function() {
+  const overButtons = function() {
+    btnNext.classList.toggle('over');
+    btnPrev.classList.toggle('over');
+  };
+
+  btnNext.setAttribute('id', 'btnNext');
+  btnPrev.setAttribute('id', 'btnPrev');
+  player.append(btnPrev, btnNext);
+
+  btnNext.addEventListener('click', function() {
     controller.next(true);
   });
 
-  $btnPrev.click(function() {
+  btnPrev.addEventListener('click', function() {
     controller.previous(true);
   });
 
-  $player.mousemove(function() {
+  btnNext.addEventListener('mouseover', overButtons);
+  btnNext.addEventListener('mouseleave', overButtons);
+  btnPrev.addEventListener('mouseover', overButtons);
+  btnPrev.addEventListener('mouseleave', overButtons);
+
+  player.addEventListener('mousemove', function() {
     if (flagMove) {
-      flagMove = false;
-      $btnNext.fadeIn('slow');
-      $btnPrev.fadeIn('slow');
+      fadeButtons();
 
       setTimeout(() => {
-        flagMove = true;
-        $btnNext.fadeOut('slow');
-        $btnPrev.fadeOut('slow');
+        fadeButtons();
       }, 3000);
     }
   });
