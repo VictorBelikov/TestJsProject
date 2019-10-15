@@ -1,7 +1,19 @@
 {
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jquery": true,
+    "mocha": true
+  },
   "extends": ["airbnb-base"],
   "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
     "Chart": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
   },
   "rules": {
     "func-names": "off",
@@ -30,11 +42,5 @@
     "eol-last": "off",
     "consistent-return": "off",
     "wrap-iife": "off"
-  },
-  "env": {
-    "browser": true,
-    "node": true,
-    "jquery": true,
-    "mocha": true
   }
 }

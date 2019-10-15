@@ -1,2 +1,6 @@
+let sayHi = 'hello';
 
-$(document).ready(function() {});
+function multiple(a, b) {
+  const message = 'hello';
+  return a + b;
+}
