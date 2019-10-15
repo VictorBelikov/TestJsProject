@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
   const btnNext = document.createElement('button');
   const btnPrev = document.createElement('button');
-  const player = document.querySelector('#player .tpVideo');
+  const player = document.getElementById('player');
+  const video = document.querySelector('#player .tpVideo');
   const controller = $pdk.controller;
   let flagMove = true;
 
@@ -11,14 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
     btnPrev.classList.toggle('fade');
   };
 
-  const overButtons = function() {
-    btnNext.classList.toggle('over');
-    btnPrev.classList.toggle('over');
-  };
-
   btnNext.setAttribute('id', 'btnNext');
   btnPrev.setAttribute('id', 'btnPrev');
-  player.append(btnPrev, btnNext);
+  video.append(btnPrev, btnNext);
 
   btnNext.addEventListener('click', function() {
     controller.next(true);
@@ -28,18 +24,27 @@ document.addEventListener('DOMContentLoaded', function() {
     controller.previous(true);
   });
 
-  btnNext.addEventListener('mouseover', overButtons);
-  btnNext.addEventListener('mouseleave', overButtons);
-  btnPrev.addEventListener('mouseover', overButtons);
-  btnPrev.addEventListener('mouseleave', overButtons);
+  // Fix for chrome.
+  window.addEventListener('resize', function() {
+    const playerHeight = video.clientHeight;
+    btnNext.style.height = playerHeight + 'px';
+    btnPrev.style.height = playerHeight + 'px';
+  });
 
-  player.addEventListener('mousemove', function() {
+  video.addEventListener('mousemove', function() {
     if (flagMove) {
       fadeButtons();
 
       setTimeout(() => {
         fadeButtons();
       }, 3000);
+    }
+  });
+
+  player.addEventListener('touchstart', function(e) {
+    if (document.querySelector('#player .tpPlayerView').classList.contains('tpPlaying')) {
+      e.preventDefault();
+      $pdk.controller.pause(true);
     }
   });
 });
