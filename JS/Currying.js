@@ -16,8 +16,13 @@
 // let Volume3 = getBrickVolume(10, 20, 15); // 3000
 
 // =======================================================================
+/**
+ * Каррировать функции target1, target2.
+ * Цель каррирования: если аргументов недостаточно, то вернуть частично
+ * примененную функцию.
+ */
 
-// тут мясо
+// with bind
 Function.prototype.myBind = function (context, ...args) {
   const callContext = this;
   return function (...restArgs) {
@@ -36,7 +41,6 @@ function curry(func) {
 
 // =======================================================================
 
-// работает также, как "мясо", но проще понять
 function curry2(fn, ...args) {
   return function (arg) {
     const allArgs = args.concat(arg);
@@ -49,13 +53,13 @@ function curry2(fn, ...args) {
 
 // =======================================================================
 
-function target1(a, b, c, d) {
+const target1 = (a, b, c, d) => {
   return a + b + c + d;
 }
 
-function target2(a, b) {
+const target2 = (a, b) => {
   return a + b;
 }
 
-console.log(curry(target1)(1)(2)(3)(4)); // 10
-console.log(curry(target2)(5)(8)); // 13
+console.log(curry2(target1)(1)(2)(3)(4)); // 10
+console.log(curry2(target2)(5)(8)); // 13
