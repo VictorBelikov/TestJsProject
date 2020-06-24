@@ -4,6 +4,13 @@ class Robot {
   }
 }
 
+class RobotPOWER {
+  constructor(percentage) {
+    this.percentage = percentage;
+  }
+}
+
+// RobotProxy принимает power-модуль и решает создавать робота или нет.
 class RobotProxy {
   constructor(power) {
     this.power = power;
@@ -11,12 +18,6 @@ class RobotProxy {
 
   executeTask() {
     return this.power.percentage < 1 ? 'will stop executing the task soon' : new Robot().executeTask();
-  }
-}
-
-class RobotPOWER {
-  constructor(percentage) {
-    this.percentage = percentage;
   }
 }
 
@@ -37,9 +38,9 @@ const person = {
 const proxy1 = new Proxy(person, {
   get: (target, key) => target[key] || `[${key}]`,
 
-  set(target, p, value) {
-    console.log(`set property '${p}' to '${value}'`);
-    target[p] = value;
+  set(target, key, value) {
+    console.log(`set property '${key}' to '${value}'`);
+    target[key] = value;
   },
 });
 

@@ -1,121 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>FlexBox</title>
-  <style>
-    /* https://www.youtube.com/watch?v=38bMnJ2l4bg&t */
-    
-    .container-1 div, .container-2 div {
-      padding: 10px;
-      border: 1px solid silver;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>FlexBox</title>
+    <style>
+      /* https://www.youtube.com/watch?v=38bMnJ2l4bg&t */
 
-    @media (min-width: 700px) {
-      .container-1 {
+      .container-1 div,
+      .container-2 div {
+        padding: 10px;
+        border: 1px solid silver;
+      }
+
+      @media (min-width: 700px) {
+        .container-1 {
+          display: flex;
+
+          /* default; высота всех кол.=== высоте наибольшей */
+          /* align-items: stretch; */
+          /* у каждой кол. своя высота; прижато к top */
+          /* align-items: flex-start; */
+          /* у каждой кол. своя высота; прижато к bottom */
+          /* align-items: flex-end; */
+          /* у каждой кол. своя высота; прижато к center */
+          /* align-items: center; */
+
+          /* flex-direction: row; */
+          /* flex-direction: row-reverse; */
+          /* flex-direction: column; */
+          /* flex-direction: column-reverse; */
+        }
+      }
+
+      .box-1 {
+        flex: 2; /* размер колонки */
+        order: 2; /* расположение колонки */
+      }
+
+      .box-2 {
+        flex: 2;
+      }
+
+      .box-3 {
+        flex: 1;
+        order: 3;
+      }
+
+      /* ====================================================== */
+      .container-2 {
         display: flex;
 
-        /* default; высота всех кол.=== высоте наибольшей */
-        /* align-items: stretch; */
-        /* у каждой кол. своя высота; прижато к top */
-        /* align-items: flex-start; */
-        /* у каждой кол. своя высота; прижато к bottom */
-        /* align-items: flex-end; */
-        /* у каждой кол. своя высота; прижато к center */
-        /* align-items: center; */
+        /* default; колонки прижаты к левой стороне */
+        /* justify-content: flex-start; */
+        /* колонки прижаты к правой стороне */
+        /* justify-content: flex-end; */
+        /* колонки расположены по центру */
+        /* justify-content: center; */
+        /* одинаковое расстояние между колонками */
+        /* justify-content: space-around; */
+        /* одинаковое расст., но крайние прижаты к краям */
+        justify-content: space-between;
 
-        /* flex-direction: row; */
-        /* flex-direction: row-reverse; */
-        /* flex-direction: column; */
-        /* flex-direction: column-reverse; */
+        /* перенос колонок на новую строку вниз */
+        flex-wrap: wrap;
+        /* перенос колонок на новую строку вверх в обратном порядке */
+        /* flex-wrap: wrap-reverse; */
       }
-    }
 
-    .box-1 {
-      flex: 2; /* размер колонки */
-      order: 2; /* расположение колонки */
-    }
+      .box {
+        /* то же самое, что и width */
+        flex-basis: 15%;
+      }
+    </style>
+  </head>
 
-    .box-2 {
-      flex: 2;
-    }
-
-    .box-3 {
-      flex: 1;
-      order: 3;
-    }
-
-    /* ====================================================== */
-    .container-2 {
-      display: flex;
-
-      /* default; колонки прижаты к левой стороне */
-      /* justify-content: flex-start; */
-      /* колонки прижаты к правой стороне */
-      /* justify-content: flex-end; */
-      /* колонки расположены по центру */
-      /* justify-content: center; */
-      /* одинаковое расстояние между колонками */
-      /* justify-content: space-around; */
-      /* одинаковое расст., но крайние прижаты к краям */
-      justify-content: space-between;
-
-      /* перенос колонок на новую строку вниз */
-      flex-wrap: wrap;
-      /* перенос колонок на новую строку вверх в обратном порядке */
-      /* flex-wrap: wrap-reverse; */
-    }
-
-    .box {
-      /* то же самое, что и width */
-      flex-basis: 15%;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container-1">
-    <div class="box-1">
-      <h3>Box 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?</p>
+  <body>
+    <div class="container-1">
+      <div class="box-1">
+        <h3>Box 1</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis
+          totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit
+          in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?
+        </p>
+      </div>
+      <div class="box-2">
+        <h3>Box 2</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis
+          totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit
+          in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?
+        </p>
+      </div>
+      <div class="box-3">
+        <h3>Box 3</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis
+          totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit
+          in ipsum mida quisquam cum architecto cupiditate magni maiores voluptatum eligendi, veritatis similique
+          blanditiis. Voluptas nesciunt possimus eveniet!
+        </p>
+      </div>
     </div>
-    <div class="box-2">
-      <h3>Box 2</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?</p>
-    </div>
-    <div class="box-3">
-      <h3>Box 3</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit in ipsum mida quisquam cum architecto cupiditate magni maiores voluptatum eligendi, veritatis similique blanditiis. Voluptas nesciunt possimus eveniet!</p>
-    </div>
-  </div>
 
-  <div class="container-2">
-    <div class="box">
-      <h3>Box 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?</p>
-    </div>
-    <div class="box">
-      <h3>Box 2</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?</p>
-    </div>
-    <div class="box">
-      <h3>Box 3</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit in ipsum mida quisquam cum architecto cupiditate magni maiores voluptatum eligendi, veritatis similique blanditiis. Voluptas nesciunt possimus eveniet!</p>
-    </div>
-    <div class="box">
+    <div class="container-2">
+      <div class="box">
+        <h3>Box 1</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis
+          totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit
+          in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?
+        </p>
+      </div>
+      <div class="box">
+        <h3>Box 2</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis
+          totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit
+          in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?
+        </p>
+      </div>
+      <div class="box">
+        <h3>Box 3</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis
+          totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit
+          in ipsum mida quisquam cum architecto cupiditate magni maiores voluptatum eligendi, veritatis similique
+          blanditiis. Voluptas nesciunt possimus eveniet!
+        </p>
+      </div>
+      <div class="box">
         <h3>Box 4</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?</p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis
+          totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit
+          in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?
+        </p>
       </div>
       <div class="box">
         <h3>Box 5</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?</p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis
+          totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit
+          in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?
+        </p>
       </div>
       <div class="box">
-          <h3>Box 6</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?</p>
-        </div>
-  </div>
-</body>
+        <h3>Box 6</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cum, error et nihil odit officia perferendis
+          totam. A et in ipsa natus neque nulla repellendus, sapiente, tempora ullam veniam voluptates! Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Commodi, consectetur deserunt dolore doloribus ea, harum impedit
+          in ipsum minus nihil nostrum quas quidem reprehenderit sapiente sed suscipit voluptates? Et, quisquam?
+        </p>
+      </div>
+    </div>
+  </body>
 </html>
