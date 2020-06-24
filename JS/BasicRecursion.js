@@ -13,7 +13,7 @@
 
 // Решение с рекурсией
 // function fibonacci(num) {
-// return num > 2 ? fibonacci(num - 1) + fibonacci(num - 2) : 1;
+// return n <= 2 ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
 // }
 
 // Решение с кэшированием(мемоизацией). Очень сильно увелич. скорость: n=50

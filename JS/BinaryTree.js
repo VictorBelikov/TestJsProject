@@ -59,9 +59,9 @@ function removeNode(node, data) {
     if (!node.right) return node.left; // Если не имеет только правого потомка, заменяем его левым
 
     // Если имеет обоих потомков, то замен. наименьшим узлом в правом поддереве у кот. left === null
-    const temp = getMin(node.right);
-    node.data = temp; // Данными минимального эл-та заменили данные текущего узла
-    node.right = removeNode(node.right, temp); // Теперь нужно удалить этот миним. эл-т
+    const minData = getMin(node.right);
+    node.data = minData; // Данными минимального эл-та заменили данные текущего узла
+    node.right = removeNode(node.right, minData); // Теперь нужно удалить этот миним. эл-т
     return node; // Возвр.текущий узел
   }
   if (data < node.data) {

@@ -14,7 +14,7 @@ function SinglyLinkedList() {
   });
 }
 
-SinglyLinkedList.prototype.add = function(data) {
+SinglyLinkedList.prototype.add = function (data) {
   const node = new Node(data);
   if (!this.head) {
     this.head = node;
@@ -26,7 +26,7 @@ SinglyLinkedList.prototype.add = function(data) {
   this.length++;
 };
 
-SinglyLinkedList.prototype.remove = function(data) {
+SinglyLinkedList.prototype.remove = function (data) {
   let current = this.head;
   let previous = this.head;
 
@@ -46,22 +46,23 @@ SinglyLinkedList.prototype.remove = function(data) {
 // list.add(1);
 // list.add(2);
 // list.add(3);
-// console.log(list.length());
-// list.remove(2);
-// console.log(list.length());
+// console.log(list.length);
+// list.remove(3);
+// console.log(list.length);
+// console.log(list);
 
 // ================================== Stack ===================================
 function Stack() {
   this.stack = [];
 }
 
-Stack.prototype.push = function(val) {
+Stack.prototype.push = function (val) {
   this.stack.push(val);
 };
-Stack.prototype.pop = function() {
+Stack.prototype.pop = function () {
   return this.stack.pop();
 };
-Stack.prototype.peek = function() {
+Stack.prototype.peek = function () {
   return this.stack[this.stack.length - 1];
 };
 
@@ -70,13 +71,13 @@ function Queue() {
   this.queue = [];
 }
 
-Queue.prototype.enqueue = function(val) {
+Queue.prototype.enqueue = function (val) {
   this.queue.push(val);
 };
-Queue.prototype.dequeue = function() {
+Queue.prototype.dequeue = function () {
   return this.queue.shift();
 };
-Queue.prototype.peek = function() {
+Queue.prototype.peek = function () {
   return this.queue[0];
 };
 
@@ -86,18 +87,18 @@ function Set() {
   this.length = 0;
 }
 
-Set.prototype.has = function(item) {
+Set.prototype.has = function (item) {
   return typeof this.data[item] !== 'undefined';
 };
 
-Set.prototype.add = function(item) {
+Set.prototype.add = function (item) {
   if (!this.has(item)) {
     this.data[item] = true;
     this.length++;
   }
 };
 
-Set.prototype.remove = function(item) {
+Set.prototype.remove = function (item) {
   if (this.has(item)) {
     delete this.data[item];
     this.length--;

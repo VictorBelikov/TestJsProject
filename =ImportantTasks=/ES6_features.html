@@ -1,252 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
-  <title>ES6_features</title>
-  <style>
-    .box {
-      width: 200px;
-      padding: 25px 80px;
-      text-align: center;
-      font-size: 30px;
-      margin-top: 30px;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="ie=edge" http-equiv="X-UA-Compatible" />
+    <title>ES6_features</title>
+    <style>
+      .box {
+        width: 200px;
+        padding: 25px 80px;
+        text-align: center;
+        font-size: 30px;
+        margin-top: 30px;
+      }
 
-    .green {
-      background-color: green;
-    }
+      .green {
+        background-color: green;
+      }
 
-    .blue {
-      background-color: dodgerblue;
-    }
+      .blue {
+        background-color: dodgerblue;
+      }
 
-    .orange {
-      background-color: orangered;
-    }
-  </style>
-</head>
+      .orange {
+        background-color: orangered;
+      }
+    </style>
+  </head>
 
-<body>
-<div class="box green">I'm green!</div>
-<div class="box blue">I'm blue!</div>
-<script>
-  // ==============================Strings===================================
-  const firstName = 'John';
-  const lastName = 'Smith';
-  const str = `${firstName} ${lastName}`; // John Smith
+  <body>
+    <div class="box green">I'm green!</div>
+    <div class="box blue">I'm blue!</div>
+    <script>
+      Object.entries({ 1: 'a', 33: 'b', '-1': 'c' }); // [['1', 'a'], ['33', 'b'], ['1', c]]
+      Object.values({ 1: 'a', 33: 'b', '-1': 'c' }); // ['a', 'b', 'c']
+      // ==============================Exponential operator======================
+      const y = 2 ** 2; // 4
 
-  str.startsWith('J'); // true
-  str.endsWith('th'); // true
-  str.includes('ohn'); // true
-  firstName.repeat(5); // JohnJohnJohnJohnJohn
+      // ==============================Strings===================================
+      const firstName = 'John';
+      const lastName = 'Smith';
+      const str = `${firstName} ${lastName}`; // John Smith
 
-  // ===============================Arrow function===========================
-  const boxGreen = {
-    color: 'green',
-    position: 1,
-    clickMe() {
-      const that = this;
-      document.querySelector('.green').addEventListener('click', function() {
-        console.log(this); // <div class="box green">I'm green!</div>
-        console.log(`${this.color}, ${this.position}`); // undefined, undefined
-        console.log(`${that.color}, ${that.position}`); // green, 1
-      });
-    },
-  };
+      str.startsWith('J'); // true
+      str.endsWith('th'); // true
+      str.includes('ohn'); // true
+      firstName.repeat(5); // JohnJohnJohnJohnJohn
+      '1'.padStart(4, '0'); // '0001'
+      '1'.padEnd(4, '0'); // '1000'
+      '  hello  '.trimStart(); // 'hello   '
+      '  hello  '.trimEnd(); // '   hello'
 
-  const boxBlue = {
-    color: 'blue',
-    position: 2,
-    clickMe() {
-      // Стрелочная функция автоматически запомнила внешний this.
-      document.querySelector('.blue').addEventListener('click', () => {
-        console.log(this); // boxBlue = {}
-        console.log(`${this.color}, ${this.position}`); // blue, 2
-      });
-    },
-  };
+      // ===============================Arrow function===========================
+      const boxGreen = {
+        color: 'green',
+        position: 1,
+        clickMe() {
+          const that = this;
+          document.querySelector('.green').addEventListener('click', function () {
+            console.log(this); // <div class="box green">I'm green!</div>
+            console.log(`${this.color}, ${this.position}`); // undefined, undefined
+            console.log(`${that.color}, ${that.position}`); // green, 1
+          });
+        },
+      };
 
-  boxGreen.clickMe();
-  boxBlue.clickMe();
+      const boxBlue = {
+        color: 'blue',
+        position: 2,
+        clickMe() {
+          // Стрелочная функция автоматически запомнила внешний this.
+          document.querySelector('.blue').addEventListener('click', () => {
+            console.log(this); // boxBlue = {}
+            console.log(`${this.color}, ${this.position}`); // blue, 2
+          });
+        },
+      };
 
-  // var name1 = 'globalName';
-  // var user = {
-  //   name1: 'Василий',
-  //
-  //   export: function() {
-  //     return this; // window or user
-  //   },
-  // };
-  //
-  // console.log(user.export().name1);
+      boxGreen.clickMe();
+      boxBlue.clickMe();
 
-  // ===============================Arrow function===========================
-  function Person1(name) {
-    this.name = name;
-  }
+      // var name1 = 'globalName';
+      // var user = {
+      //   name1: 'Василий',
+      //
+      //   export: function() {
+      //     return this;
+      //   },
+      // };
+      //
+      // console.log(user.export().name1); // 'Василий'
+      // console.log(user.export.apply(this).name1); // 'globalName'
 
-  Person1.prototype.myFriends = function(friends) {
-    console.log(this); // Person1 = {}
+      // ===============================Arrow function===========================
+      function Person1(name) {
+        this.name = name;
+      }
 
-    // При вызове friends.map(), this внутри map будет массив friends; если функции не вызваны в каком-либо контексте у них this всегда window; bind() - крепит this ближайшего scope, как и стрелочная функция.
-    const arr = friends.map(
-      function(el) {
-        console.log(this); // Window or Person1 = {}
-        return `${this.name} is friends with ${el}`;
-      }.bind(this),
-    ); // используем bind() либо стрелочную
-    console.log(arr);
-  };
+      Person1.prototype.myFriends = function (friends) {
+        console.log(this); // Person1 = {}
 
-  const friends = ['Bob', 'Jane', 'Mark'];
-  // new Person1('Victor').myFriends(friends);
+        // При вызове friends.map(), this внутри map будет массив friends; если функции не вызваны в каком-либо контексте у них this всегда window; bind() - крепит this ближайшего scope, как и стрелочная функция.
+        const arr = friends.map(
+          function (el) {
+            console.log(this); // Window or Person1 = {}
+            return `${this.name} is friends with ${el}`;
+          }.bind(this),
+        ); // используем bind() либо стрелочную
+        console.log(arr);
+      };
 
-  // ===========================Destructuring================================
-  const [name, age] = ['John', 26];
-  // console.log(name, age); // John 26
+      const friends = ['Bob', 'Jane', 'Mark'];
+      // new Person1('Victor').myFriends(friends);
 
-  // ===========================Destructuring================================
-  const person = {
-    firstName1: 'John',
-    lastName1: 'Smith',
-  };
-  const { firstName1, lastName1 } = person;
-  // console.log(firstName1, lastName1); // John Smith
+      // ===========================Destructuring================================
+      const [name, age] = ['John', 26];
+      // console.log(name, age); // John 26
 
-  const { firstName1: a, lastName1: b } = person;
-  // console.log(a, b); // John Smith
+      // ===========================Destructuring================================
+      const person = {
+        firstName1: 'John',
+        lastName1: 'Smith',
+      };
+      const { firstName1, lastName1 } = person;
+      // console.log(firstName1, lastName1); // John Smith
 
-  // ===========================Destructuring================================
-  var a = { field1: 1 };
-  var b = { ...a } // { field: 1 }, a !== b
-  a.field2 = 2; a.field3 = 3;
+      const { firstName1: a, lastName1: b } = person;
+      // console.log(a, b); // John Smith
 
-  // Распределяем объект 'а' на две переменные 'cdd' & 'c'
-  var { field2: cdd, ...c } = a; // cdd === 2; c: { field1: 1, field3: 3 }
+      // ===========================Destructuring================================
+      var a = { field1: 1 };
+      var b = { ...a }; // { field: 1 }, a !== b
+      a.field2 = 2;
+      a.field3 = 3;
 
-  // ===========================Destructuring================================
-  function simpleCalc(num1, num2) {
-    const num3 = 10;
-    return [num3 + num1, num3 + num2];
-  }
+      // Распределяем объект 'а' на две переменные 'cdd' & 'c'
+      var { field2: cdd, ...c } = a; // cdd === 2; c: { field1: 1, field3: 3 }
 
-  const [i, j] = simpleCalc(2, 5);
-  // console.log(i, j); // 12 15
+      // ===========================Destructuring================================
+      function simpleCalc(num1, num2) {
+        const num3 = 10;
+        return [num3 + num1, num3 + num2];
+      }
 
-  // ================================Arrays==================================
-  // Т.к. в JS динамическая типизация и в массиве могут лежать совершенно разные эл-ты разных размеров, то в отличии от С, массив не занимает ячейки памяти подряд, а диоптимизируется до hashmap. Однако, если в массиве лежат эл-ты одинаковых типов, то JS движки оптимизируют такой массив к нативному массиву.
-  Array.of(1, 'hello', false); // [1, 'hello', false]
-  [77, [1, 2], [3, 4, 5, 6], [7], [8, 9]].reduce((sum, el) => sum.concat(el), []); // плоский массив
+      const [i, j] = simpleCalc(2, 5);
+      // console.log(i, j); // 12 15
 
-  const boxes = document.querySelectorAll('.box');
-  // const boxesArr = [].slice.call(boxes); // превратили в массив одалживанием метода
-  const boxesArr = Array.from(boxes); // превратили в массив новым ES6 методом
-  // Вместо старого for. Можем перебирать массивы, объекты
-  for (const el of boxesArr) {
-    console.log(/*el*/); // <div class="box green">I'm green!</div>
-  }
+      // ================================Arrays==================================
+      // Т.к. в JS динамическая типизация и в массиве могут лежать совершенно разные эл-ты разных размеров, то в отличии от С, массив не занимает ячейки памяти подряд, а диоптимизируется до hashmap. Однако, если в массиве лежат эл-ты одинаковых типов, то JS движки оптимизируют такой массив к нативному массиву.
+      Array.of(1, 'hello', false); // [1, 'hello', false]
+      [77, [1, 2], [3, 4, 5, 6], [7], [8, 9]].reduce((sum, el) => sum.concat(el), []); // плоский массив
 
-  const ages = [12, 17, 8, 21, 14, 19];
-  ages.findIndex((el) => el >= 18); // 3; 1-ый попавшийся индекс
-  ages.find((el) => el >= 18); // 21; 1-ый попавшийся эл-т
+      // Рзворачивает подмассив; 1 - на какую глубину
+      [1, 2, [3, 4]].flat(1); // [1, 2, 3, 4];
 
-  // ===========================Spread operator==============================
-  const family1 = ['John', 'Jane', 'Mark'];
-  const family2 = ['Mary', 'Bob', 'Ann'];
-  const bigFamily = [...family1, 'Lily', ...family2]; // -->
-  // ["John", "Jane", "Mark", "Lily", "Mary", "Bob", "Ann"]
+      const boxes = document.querySelectorAll('.box');
+      // const boxesArr = [].slice.call(boxes); // превратили в массив одалживанием метода
+      const boxesArr = Array.from(boxes); // превратили в массив новым ES6 методом
+      // Вместо старого for. Можем перебирать массивы, объекты
+      for (const el of boxesArr) {
+        console.log(/*el*/); // <div class="box green">I'm green!</div>
+      }
 
-  // ============================Maps(ключ-значение)=========================
-  // В отличии от объектов, ключом может быть что угодно, а не только строка
-  const question = new Map();
-  question.set(
-    'question',
-    'What is the official name of the latest major JS version?',
-  );
-  question.set(1, 'ES5');
-  question.set(2, 'ES6');
-  question.set(3, 'ES2015');
-  question.set(4, 'ES7');
-  question.set('correct', 3);
-  question.set(true, 'Correct answer!');
-  question.set(false, 'Wrong, please try again.');
+      const ages = [12, 17, 8, 21, 14, 19];
+      ages.findIndex((el) => el >= 18); // 3; 1-ый попавшийся индекс
+      ages.find((el) => el >= 18); // 21; 1-ый попавшийся эл-т
 
-  question.get('question'); // What is the official name of the latest major JS version?
-  question.get(4); // ES7
-  question.size; // 8
-  question.delete(4);
-  question.get(4); // undefined
-  question.has(1); // true
-  // question.forEach((val, key) => console.log(key, val));
+      // ===========================Spread operator==============================
+      const family1 = ['John', 'Jane', 'Mark'];
+      const family2 = ['Mary', 'Bob', 'Ann'];
+      const bigFamily = [...family1, 'Lily', ...family2]; // -->
+      // ["John", "Jane", "Mark", "Lily", "Mary", "Bob", "Ann"]
 
-  // Деструктуризация, как в строке 117
-  for (const [key, val] of question.entries()) {
-    // console.log(key, val);
-  }
+      // ============================Maps(ключ-значение)=========================
+      // В отличии от объектов, ключом может быть что угодно, а не только строка
+      const question = new Map();
+      question.set('question', 'What is the official name of the latest major JS version?');
+      question.set(1, 'ES5');
+      question.set(2, 'ES6');
+      question.set(3, 'ES2015');
+      question.set(4, 'ES7');
+      question.set('correct', 3);
+      question.set(true, 'Correct answer!');
+      question.set(false, 'Wrong, please try again.');
 
-  // =================================Classes==============================
-  function Person(name, age) {
-    this.name = name;
-    this.age = age;
-  }
+      question.get('question'); // What is the official name of the latest major JS version?
+      question.get(4); // ES7
+      question.size; // 8
+      question.delete(4);
+      question.get(4); // undefined
+      question.has(1); // true
+      // question.forEach((val, key) => console.log(key, val));
 
-  Person.prototype.sayHi = function(message) {
-    console.log(`${message}, I'm ${this.name} and I'm ${this.age} years old.`);
-  };
+      // Деструктуризация, как в строке 117
+      for (const [key, val] of question.entries()) {
+        // console.log(key, val);
+      }
 
-  function Athlete(name, age, field, medals) {
-    Person.call(this, name, age);
-    this.field = field;
-    this.medals = medals;
-  }
+      // =================================Classes==============================
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
 
-  Athlete.prototype = Object.create(Person.prototype);
-  Athlete.prototype.constructor = Athlete;
+      Person.prototype.sayHi = function (message) {
+        console.log(`${message}, I'm ${this.name} and I'm ${this.age} years old.`);
+      };
 
-  Athlete.prototype.sayHi = function() {
-    Person.prototype.sayHi.call(this, 'Hello');
-    console.log(`I'm compete in ${this.field} and I won ${this.medals} medals`);
-  };
+      function Athlete(name, age, field, medals) {
+        Person.call(this, name, age);
+        this.field = field;
+        this.medals = medals;
+      }
 
-  Athlete.prototype.wonMedal = function() {
-    this.medals++;
-  };
+      Athlete.prototype = Object.create(Person.prototype);
+      Athlete.prototype.constructor = Athlete;
 
-  // ======================================================================
-  class Person1 {
-    constructor(name, age) {
-      this.name = name;
-      this.age = age;
-    }
+      Athlete.prototype.sayHi = function () {
+        Person.prototype.sayHi.call(this, 'Hello');
+        console.log(`I'm compete in ${this.field} and I won ${this.medals} medals`);
+      };
 
-    sayHi(message) {
-      console.log(`${message}, I'm ${this.name} and I'm ${this.age} years old.`);
-    }
-  }
+      Athlete.prototype.wonMedal = function () {
+        this.medals++;
+      };
 
-  class Athlete1 extends Person1 {
-    constructor(name, age, field, medals) {
-      super(name, age);
-      this.field = field;
-      this.medals = medals;
-    }
+      // ======================================================================
+      class Person_1 {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
 
-    sayHi() {
-      super.sayHi('Hello');
-      console.log(`I'm compete in ${this.field} and I won ${this.medals} medals`);
-    }
+        set newAge(value) {
+          // some logic here...
+          console.log('we are using age setter...');
+          this.age = value;
+        }
 
-    wonMedal() {
-      this.medals++;
-    }
-  }
+        get representPerson() {
+          return `we are using age getter...My name ${this.name}`;
+        }
 
-  const a1 = new Athlete1('Max', 26, 'running', 5);
-  a1.wonMedal();
-  a1.wonMedal();
-  a1.sayHi();
-</script>
-</body>
+        sayHi(message) {
+          console.log(`${message}, I'm ${this.name} and I'm ${this.age} years old.`);
+        }
+      }
+
+      class Athlete_1 extends Person_1 {
+        constructor(name, age, field, medals) {
+          super(name, age);
+          this.field = field;
+          this.medals = medals;
+        }
+
+        sayHi() {
+          super.sayHi('Hello');
+          console.log(`I'm compete in ${this.field} and I won ${this.medals} medals`);
+        }
+
+        wonMedal() {
+          this.medals++;
+        }
+      }
+
+      const a1 = new Athlete_1('Max', 26, 'running', 5);
+      a1.wonMedal();
+      a1.wonMedal();
+      a1.sayHi();
+      a1.newAge = 21;
+      console.log(a1.representPerson);
+
+      // ======================= Functional Inheritance ====================
+
+      function Person3(name, age) {
+        this.name = name;
+        this.age = age;
+
+        this.sayHi = function (message) {
+          console.log(`${message} my name is ${this.name} and I'm ${this.age} years old`);
+        };
+      }
+
+      function Athlete3(name, age, medals, field) {
+        Person3.call(this, name, age);
+        this.field = field;
+        this.medals = medals;
+
+        const parentSayHi = this.sayHi;
+
+        this.sayHi = function () {
+          parentSayHi.call(this, 'Hi');
+          console.log(`I'm compete in ${this.field} and I've got ${this.medals} medals.`);
+        };
+      }
+
+      const person3 = new Person3('Max', 25);
+      person3.sayHi('Hello');
+      const athlete3 = new Athlete3('Tom', 32, 5, 'running');
+      athlete3.sayHi();
+    </script>
+  </body>
 </html>

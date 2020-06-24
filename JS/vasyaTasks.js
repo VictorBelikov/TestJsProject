@@ -1,7 +1,3 @@
-/* eslint no-var: "off" */
-/* eslint no-unused-vars: "off" */
-/* eslint max-len: "off" */
-
 /**
  * реализовать фукнцию `fizzBuzz`
  * которая выводит числа от 1 до 100.
@@ -21,37 +17,8 @@ function fizzBuzz() {
 }
 
 /**
- * Написать функцию `isDeepEqual`
- * которая принимает на вход двe переменных
- * и проверяет идентичны ли они по содержимому. Например
- * @param {*} objA
- * @param {*} objB
- * @return {boolean} идентичны ли параметры по содержимому
+ * deep object copy
  */
-function isDeepEqual(objA, objB) {
-  if (typeof objA === typeof objB) {
-    if (
-      typeof objA === 'number' &&
-      typeof objB === 'number' &&
-      isNaN(objA) &&
-      isNaN(objB)
-    ) {
-      return true;
-    }
-    if (typeof objA === 'object' && typeof objB === 'object') {
-      if (objA.length !== objB.length) return false;
-
-      for (const key in objA) {
-        if (objA[key] === objA && objB[key] === objB) return true; // рекурс. ссылки
-        if (!isDeepEqual(objA[key], objB[key])) return false;
-      }
-      return true;
-    }
-    return objA === objB;
-  }
-  return false;
-}
-
 function deepCopy(obj) {
   if (typeof obj !== 'object') return obj;
   const copy = {};
@@ -66,25 +33,13 @@ function deepCopy(obj) {
 }
 
 /**
- * Функция фиксации контекста
- * @param {*} func Функция для которой нужно зафиксировать контекст
- * @param {*} context значение для this
- * @return {function} функция с зафиксированным контекстом
- */
-function bind(func, context) {
-  return function() {
-    return func.apply(context, arguments);
-  };
-}
-
-/**
  * Реализовать метод .myBind для всех функций,
  * который работает так же как оригинальный .bind но не использует его внутри
  * (можно использовать фукнцию выше)
  */
-Function.prototype.myBind = function(context, ...args) {
+Function.prototype.myBind = function (context, ...args) {
   const callContext = this;
-  return function(...restArgs) {
+  return function (...restArgs) {
     return callContext.apply(context, args.concat(restArgs));
   };
 };
@@ -110,38 +65,110 @@ function MagicProp() {
 }
 
 /**
- * Создать конструктор с методами, так,
- * чтобы следующий код работал и делал соответствующие вещи
- * те запуск кода ниже должен делать то, что говорят методы
- * u.askName().askAge().showAgeInConsole().showNameInAlert();
+ * Написать фукнцию сумматор, которая будет работать
+ * const s = sum();
+ * console.log(+s); // 0
+ * console.log(+s(1)); // 1
+ * console.log(+s(1)(2)); // 3
+ * console.log(+s(3)(4)(5)); // 12
+ * Число вызовов может быть неограниченым
  */
-function Metrics() {}
+function sum(a) {
+  let result = a || 0;
 
-Metrics.prototype.askName = function() {
-  this.name = prompt('Как Вас зовут?', '');
-  return this;
-};
-
-Metrics.prototype.askAge = function() {
-  while (true) {
-    this.age = prompt('Сколько Вам лет?', '');
-    if (!isNaN(parseFloat(this.age)) && isFinite(this.age)) {
-      return this;
-    }
+  function summator(b) {
+    return sum(result + (b || 0));
   }
-};
+  summator.valueOf = function () {
+    return result;
+  };
+  return summator;
+}
 
-Metrics.prototype.showAgeInConsole = function() {
-  console.log(this.age);
-  return this;
-};
+/**
+ Написать функцию getCounter и покрыть ее тестами, так, чтобы работал следующий код
+ const c = getCounter(5);
+ c
+ .log() // 5
+ .add(4)
+ .log() // 9
+ .add(3)
+ .log() // 12
+ .reset()
+ .log() // 0
+ .add(8)
+ .log(); // 8
+ */
+function getCounter(n) {
+  return {
+    num: n,
+    log() {
+      console.log(this.num);
+      return this;
+    },
+    add(val) {
+      this.num += val;
+      return this;
+    },
+    reset() {
+      this.num = 0;
+      return this;
+    },
+  };
+}
 
-Metrics.prototype.showNameInAlert = function() {
-  alert(this.name);
-  return this;
-};
+// Создать синхронную функцию sleep(seconds) так, чтобы работал код
+// console.log(new Date()); // Sun Oct 08 2017 10:44:34 GMT+0300 (+03)
+// sleep(9);
+// console.log(new Date()); // Sun Oct 08 2017 10:44:43 GMT+0300 (+03)
+function sleep(secs) {
+  // const currDate = new Date();
+  // while (new Date() - currDate < secs * 1000) {}
 
-let u = new Metrics();
+  const currDate = Date.now();
+  while (currDate + secs * 1000 > Date.now()) {}
+}
+
+// ========================== End main section ================================
+
+/**
+ * Написать функцию `isDeepEqual`
+ * которая принимает на вход двe переменных
+ * и проверяет идентичны ли они по содержимому. Например
+ * @param {*} objA
+ * @param {*} objB
+ * @return {boolean} идентичны ли параметры по содержимому
+ */
+function isDeepEqual(objA, objB) {
+  if (typeof objA === typeof objB) {
+    if (typeof objA === 'number' && typeof objB === 'number' && isNaN(objA) && isNaN(objB)) {
+      return true;
+    }
+    if (typeof objA === 'object' && typeof objB === 'object') {
+      if (objA.length !== objB.length) return false;
+
+      for (const key in objA) {
+        if (objA[key] === objA && objB[key] === objB) return true; // рекурс. ссылки
+        if (!isDeepEqual(objA[key], objB[key])) return false;
+      }
+      return true;
+    }
+    return objA === objB;
+  }
+  return false;
+}
+
+/**
+ * Функция фиксации контекста
+ * @param {*} func Функция для которой нужно зафиксировать контекст
+ * @param {*} context значение для this
+ * @return {function} функция с зафиксированным контекстом
+ */
+function bind(func, context) {
+  return function () {
+    return func.apply(context, arguments);
+  };
+}
 
 /**
  * Написать фукнцию-калькулятор, которая работает следующим образом
@@ -150,8 +177,8 @@ let u = new Metrics();
  * Допустимые операции : + - * /
  */
 function calculate(operator) {
-  return function(a) {
-    return function(b) {
+  return function (a) {
+    return function (b) {
       // switch (operator) {
       //     case '*':
       //         return a * b;
@@ -170,24 +197,6 @@ function calculate(operator) {
 }
 
 /**
- * Создайте конструктор-синглтон? Что такое синглтон?
- * new Singleton() === new Singleton
- */
-// Синглтон - pattern javascript. Подразумевает объект, который может иметь только один экземпляр.
-const Singleton = (function() {
-  let _instance; // в замыкании
-
-  return function() {
-    if (!_instance) _instance = this;
-    return _instance;
-  };
-})();
-
-// function F() {
-//   return F;
-// }
-
-/**
  * Создайте функцию ForceConstructor
  * которая работает как конструктор независимо от того,
  * вызвана она с new или без
@@ -203,69 +212,6 @@ function ForceContructor(a, b, c) {
     return new ForceContructor(a, b, c); // recursion
   }
 }
-
-/**
- * Написать фукнцию сумматор, которая будет работать
- * const s = sum();
- * console.log(+s); // 0
- * console.log(+s(1)); // 1
- * console.log(+s(1)(2)); // 3
- * console.log(+s(3)(4)(5)); // 12
- * Число вызовов может быть неограниченым
- */
-function sum(a) {
-  let result = a || 0;
-
-  function summator(b) {
-    return sum(result + (b || 0));
-  }
-  summator.valueOf = function() {
-    return result;
-  };
-  return summator;
-}
-
-/**
- * Написать каррирующую функцию и покрыть ее тестами
- * Функция должна поддерживать каррирование функций с 2,3,4,5 параметрами
- * пример работы  функции
- *
- * function target1(a,b,c,d) { return a + b + c + d }
- * function target2(a,b) { return a + b }
- * curry(target1)(1)(2)(3)(4) // 10
- * curry(target2)(5)(8) // 13
- *
- * Примеры тестов смотреть в файле тестов
- *
- * Читать
- * http://prgssr.ru/development/vvedenie-v-karrirovanie-v-javascript.html
- * @param {*} fn
- */
-function target1(a, b, c, d) {
-  return a + b + c + d;
-}
-function target2(a, b) {
-  return a + b;
-}
-// function curry(fn, ...args) {
-//   return function(arg) {
-//     const allArgs = args.concat(arg);
-//     if (allArgs.length === fn.length) {
-//       return fn(...allArgs);
-//     }
-//     return curry(fn, ...allArgs);
-//   };
-// }
-function curry(fn) {
-  return function help(...args) {
-    if (args.length !== fn.length) {
-      return help.myBind(null, ...args);
-    }
-    return fn(...args);
-  };
-}
-// console.log(curry(target1)(1)(2)(3)(4)); // 10
-// console.log(curry(target2)(5)(8)); // 13
 
 /*
 Написать код, который для объекта созданного с помощью конструктора будет показывать,
@@ -307,82 +253,11 @@ function NotConstructor() {
   }
 }
 
-/**
-Написать функцию getCounter и покрыть ее тестами, так, чтобы работал следующий код
-const c = getCounter(5);
-c
-  .log() // 5
-  .add(4)
-  .log() // 9
-  .add(3)
-  .log() // 12
-  .reset()
-  .log() // 0
-  .add(8)
-  .log(); // 8
-*/
-function getCounter(n) {
-  return {
-    num: n,
-    log() {
-      console.log(this.num);
-      return this;
-    },
-    add(val) {
-      this.num += val;
-      return this;
-    },
-    reset() {
-      this.num = 0;
-      return this;
-    },
-  };
-}
-
 // Написать реализацию метода .myCall, который будет работать аналогично системному .call и покрыть реализацию тестами
-Function.prototype.myCall = function(context) {
+Function.prototype.myCall = function (context) {
   let args = []; // помещаем сюда все аргументы, кроме 1го, который context
   for (let i = 1; i < arguments.length; i++) {
     args.push(arguments[i]);
   }
   return this.apply(context, args);
 };
-
-// Написать реализацию функций debounce и throttle и покрыть реализации тестами ( Если ваше имя начинается с гласной - debounce, иначе - throttle. А лучше - обе ). Функции должны с сигнатурой debounce(fun, delay) / throttle(fun, delay)
-function throttle(fn, delay) {
-  // Отнимает delay, чтобы 1-ый вызов был без ожидания.
-  let lastExecution = Date.now() - delay;
-
-  return function() {
-    if (lastExecution + delay <= Date.now()) {
-      lastExecution = Date.now();
-      fn.apply(this, arguments);
-    }
-  };
-}
-
-function debounce(fn, delay) {
-  let timeout;
-
-  return function() {
-    let that = this,
-      args = arguments;
-
-    clearTimeout(timeout);
-    timeout = setTimeout(function() {
-      fn.apply(that, args);
-    }, delay);
-  };
-}
-
-// Создать синхронную функцию sleep(seconds) так, чтобы работал код
-// console.log(new Date()); // Sun Oct 08 2017 10:44:34 GMT+0300 (+03)
-// sleep(9);
-// console.log(new Date()); // Sun Oct 08 2017 10:44:43 GMT+0300 (+03)
-function sleep(secs) {
-  // const currDate = new Date();
-  // while (new Date() - currDate < secs * 1000) {}
-
-  const currDate = Date.now();
-  while (currDate + secs * 1000 > Date.now()) {}
-}
