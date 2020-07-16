@@ -16,7 +16,7 @@
     "eslint-plugin-import": "^2.18.2"
   },
   "dependencies": {
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.1",
     "chart.js": "^2.7.3",
     "jquery": "^3.3.1",
     "jquery-ui-dist": "^1.12.1",
