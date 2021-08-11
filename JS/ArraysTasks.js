@@ -16,7 +16,7 @@ function f2(arr) {
 function f3(arr) {
   // return [...arr].concat(arr.reverse());
   return arr.concat(arr.slice().reverse());
-}
+}asdfa
 // console.log(f3([10, 25, 35, 50])); // [10, 25, 35, 50, 50, 35, 25, 10]
 // console.log(f3([10, 25, 35, 50, 60])); // [10, 25, 35, 50, 60, 60, 50, 35, 25, 10]
 
