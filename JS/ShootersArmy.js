@@ -10,7 +10,7 @@ function makeArmy() {
   const shooters = [];
 
   for (var i = 0; i < 10; i++) {
-    shooters.push(function() {
+    shooters.push(function () {
       console.log(i);
     });
 

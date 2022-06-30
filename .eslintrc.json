@@ -1,7 +1,7 @@
 {
   "env": {
     "browser": true,
-    "es6": true,
+    "es2021": true,
     "node": true,
     "jquery": true,
     "mocha": true
@@ -12,8 +12,9 @@
     "SharedArrayBuffer": "readonly",
     "Chart": true
   },
+  "ignorePatterns": ["js/main.js"],
   "parserOptions": {
-    "ecmaVersion": 2018
+    "ecmaVersion": 12
   },
   "rules": {
     "func-names": "off",
@@ -41,6 +42,9 @@
     "no-trailing-spaces": "off",
     "eol-last": "off",
     "consistent-return": "off",
-    "wrap-iife": "off"
+    "wrap-iife": "off",
+    "max-len": "off",
+    "camelcase": "off",
+    "no-await-in-loop": "warn"
   }
 }

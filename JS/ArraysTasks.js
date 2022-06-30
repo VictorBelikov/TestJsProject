@@ -1,22 +1,16 @@
 // "name": "Return the sum of positive values",
 function f1(arr) {
-  return arr.filter(el => el > 0).reduce((acc, el) => acc + el, 0);
+  return arr.filter((el) => el > 0).reduce((acc, el) => acc + el, 0);
 }
+
 // console.log(f1([1, -2, -6, 3, 7])); // 11
 // console.log(f1([1, -2, -6, 3, -7])); // 4
-
-// Return values that are greater than 42
-function f2(arr) {
-  return arr.filter(el => el > 42);
-}
-// console.log(f2([40, 41, 42, 43, 34, 24, 100])); // [43, 100]
-// console.log(f2([40, 41, 42, 43, 34, 24, 100, 55])); // [43, 100, 55]
 
 // Return original array concatenated with its mirror
 function f3(arr) {
   // return [...arr].concat(arr.reverse());
   return arr.concat(arr.slice().reverse());
-}asdfa
+}
 // console.log(f3([10, 25, 35, 50])); // [10, 25, 35, 50, 50, 35, 25, 10]
 // console.log(f3([10, 25, 35, 50, 60])); // [10, 25, 35, 50, 60, 60, 50, 35, 25, 10]
 
@@ -47,13 +41,6 @@ function f7(str) {
 }
 // console.log(f7('Union of Soviet Socialist Republics')); // 'USSR'
 // console.log(f7('United States of America')); // 'USA'
-
-// Sum of other elements
-function f8(arr) {
-  return arr.map(el => arr.reduce((acc, item) => acc + item, 0) - el);
-}
-// console.log(f8([1, 5, 6, 8, 10, 12])); // [41, 37, 36, 34, 32, 30]
-// console.log(f8([1, 5, 6, 8, 10, 122])); // [151, 147, 146, 144, 142, 30]
 
 // Sum of the five biggest numbers
 function f9(arr) {

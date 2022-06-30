@@ -1,8 +1,8 @@
 // объект, который может иметь только один экземпляр.
-const Singleton = (function() {
+const Singleton = (function () {
   let _instance = null; // в замыкании
 
-  return function() {
+  return function () {
     if (_instance === null) {
       _instance = this;
     }

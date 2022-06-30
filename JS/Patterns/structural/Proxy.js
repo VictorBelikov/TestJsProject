@@ -4,25 +4,19 @@ class Robot {
   }
 }
 
-class RobotPOWER {
-  constructor(percentage) {
-    this.percentage = percentage;
-  }
-}
-
 // RobotProxy принимает power-модуль и решает создавать робота или нет.
 class RobotProxy {
   constructor(power) {
     this.power = power;
   }
 
-  executeTask() {
-    return this.power.percentage < 1 ? 'will stop executing the task soon' : new Robot().executeTask();
+  executeRobot() {
+    return this.power < 1 ? 'will stop executing the task soon' : new Robot().executeTask();
   }
 }
 
-const robot1 = new RobotProxy(new RobotPOWER(45)).executeTask(); // robot1 - a real robot
-const robot2 = new RobotProxy(new RobotPOWER(0.745)).executeTask(); // robot2 - not a real robot, it's only a message
+const robot1 = new RobotProxy(45).executeRobot(); // robot1 - a real robot
+const robot2 = new RobotProxy(0.745).executeRobot(); // robot2 - not a real robot, it's only a message
 
 console.log(robot1); // executing the task
 console.log(robot2); // will stop executing the task soon
