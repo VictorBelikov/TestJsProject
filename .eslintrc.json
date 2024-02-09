@@ -12,7 +12,7 @@
     "SharedArrayBuffer": "readonly",
     "Chart": true
   },
-  "ignorePatterns": ["js/main.js"],
+  "ignorePatterns": ["js/main.js", "js/TypeConversion.js"],
   "parserOptions": {
     "ecmaVersion": 12
   },
@@ -45,6 +45,7 @@
     "wrap-iife": "off",
     "max-len": "off",
     "camelcase": "off",
+    "no-unused-vars": "off",
     "no-await-in-loop": "warn"
   }
 }

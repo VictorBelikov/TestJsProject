@@ -17,11 +17,11 @@ console.log(binToDec('11101000')); // 232
 const decToBin = (decNum) => {
   const stack = [];
 
-  while(decNum > 0) {
+  while (decNum > 0) {
     stack.push(decNum % 2);
     decNum = Math.floor(decNum / 2);
   }
-  
+
   return +stack.reverse().join('');
 };
 

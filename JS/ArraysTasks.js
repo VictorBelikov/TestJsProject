@@ -76,3 +76,10 @@ function f11(str) {
 // console.log(f11('(())')); // true
 // console.log(f11('")("')); // false
 // console.log(f11('")()("')); // false
+
+// Remove duplicates for array with primitive
+const numbers = [3, 3, 35657, 8, 9, 0, 5, 9, 7, 3, 7, 8, 45, 88, 35657];
+const words = ['spray', 'limit', 'elite', 'limit', 'exuberant', 'spray', 'destruction', 'present'];
+
+const result = [...new Set(words)];
+const result2 = numbers.filter((el, i, self) => self.indexOf(el) === i);

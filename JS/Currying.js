@@ -55,11 +55,11 @@ function curry2(fn, ...args) {
 
 const target1 = (a, b, c, d) => {
   return a + b + c + d;
-}
+};
 
 const target2 = (a, b) => {
   return a + b;
-}
+};
 
 console.log(curry2(target1)(1)(2)(3)(4)); // 10
 console.log(curry2(target2)(5)(8)); // 13
